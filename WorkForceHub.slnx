@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="WorkForceHub.API/WorkForceHub.API.csproj" Id="020514e6-8fc3-4273-b8c8-cf0a048a804f" />
+  <Project Path="WorkForceHub.Application/WorkForceHub.Application.csproj" Id="5ddb3d5c-3fd3-441d-b366-25c57d164996" />
+  <Project Path="WorkForceHub.Domain/WorkForceHub.Domain.csproj" Id="10936fb9-e94f-4bc6-93ff-9659e7d0fc52" />
+  <Project Path="WorkForceHub.Infrastructure/WorkForceHub.Infrastructure.csproj" Id="044cbbea-3ceb-48ea-8525-5a9fea1c1ac3" />
+  <Project Path="WorkForceHub.Web/WorkForceHub.Web.csproj" Id="7e2f1145-ad11-4615-9d30-e47a3b4bf51d" />
+</Solution>
