@@ -17,4 +17,8 @@
     <ProjectReference Include="..\WorkForceHub.Application\WorkForceHub.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 </Project>
