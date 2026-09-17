@@ -15,6 +15,15 @@ namespace WorkForceHub.Infrastructure.Data.Configurations
                 .WithMany()
                 .HasForeignKey(a => a.EmployeeId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasIndex(a => 
+            new 
+            { 
+                a.EmployeeId, 
+                a.AttendanceDate 
+            }
+            )
+            .IsUnique();
         }
     }
 }
