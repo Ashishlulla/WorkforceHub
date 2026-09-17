@@ -20,5 +20,9 @@ namespace WorkForceHub.Domain.Entities
         public DateTime CreatedAt { get; set; }
 
         public DateTime? ReadAt { get; set; }
+
+        // Navigation Property
+
+        public Employee Employee { get; set; } = null!;
     }
 }

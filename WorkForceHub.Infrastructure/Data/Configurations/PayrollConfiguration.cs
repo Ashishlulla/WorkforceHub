@@ -24,6 +24,13 @@ namespace WorkForceHub.Infrastructure.Data.Configurations
 
             builder.Property(p => p.NetSalary)
                 .HasPrecision(18, 2);
+
+            builder.HasKey(p => p.PayrollId);
+
+            builder.HasOne(p => p.Employee)
+                .WithMany()
+                .HasForeignKey(p => p.EmployeeId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

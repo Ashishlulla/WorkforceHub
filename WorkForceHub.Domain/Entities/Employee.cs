@@ -40,5 +40,10 @@ namespace WorkForceHub.Domain.Entities
         public DateTime CreatedAt { get; set; }
 
         public DateTime? UpdatedAt { get; set; }
+
+        //Navigation properties
+
+        public Department Department { get; set; } = null!;
+        public Shift Shift { get; set; } = null!;
     }
 }
