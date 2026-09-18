@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\WorkForceHub.Application\WorkForceHub.Application.csproj" />
     <ProjectReference Include="..\WorkForceHub.Domain\WorkForceHub.Domain.csproj" />
   </ItemGroup>
 
