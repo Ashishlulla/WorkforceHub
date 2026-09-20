@@ -1,24 +1,26 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using WorkForceHub.Application.DTOs.Employee;
+﻿using AutoMapper;
+using FluentValidation;
+using Microsoft.Extensions.DependencyInjection;
 using WorkForceHub.Application.Interfaces.ServiceInterfaces;
 using WorkForceHub.Application.MappingProfile;
 using WorkForceHub.Application.Services;
-using FluentValidation;               // add this or FluentValidation.AspNetCore
+using WorkForceHub.Application.Validators.Employee;
 
 namespace WorkForceHub.Application.Configurations
 {
-    public static class AddApplicationExtension
+    public static class AddApplicationExtensions
     {
-        public static IServiceCollection AddApplication(this IServiceCollection services)
+        public static IServiceCollection AddApplication(
+            this IServiceCollection services)
         {
-            //Add Services
+            services.AddAutoMapper(cfg =>
+            {
+                cfg.AddProfile<EmployeeMappingProfile>();
+            });
+
+            services.AddValidatorsFromAssemblyContaining<CreateEmployeeValidator>();
+
             services.AddScoped<IEmployeeService, EmployeeService>();
-
-            //Add AutoMapper
-            services.AddAutoMapper(cfg => cfg.AddProfile<EmployeeMappingProfile>());
-
-            //Add Validators
-            services.AddValidatorsFromAssemblyContaining<CreateEmployeeDto>();
 
             return services;
         }
