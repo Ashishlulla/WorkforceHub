@@ -26,11 +26,13 @@ namespace WorkForceHub.Application.Services
             _updateEmployeeValidator = updateEmployeeValidator;
         }
 
-        public Task CreateEmployeeAsync(CreateEmployeeDto createEmployeeDto)
+        public async Task<EmployeeDto> CreateEmployeeAsync(CreateEmployeeDto createEmployeeDto)
         {
-            _createEmployeeValidator.ValidateAndThrow(createEmployeeDto);
+            await _createEmployeeValidator.ValidateAndThrowAsync(createEmployeeDto);
             var employee = _mapper.Map<Employee>(createEmployeeDto);
-            return _employeeRepository.AddEmployeeAsync(employee);
+            var createdEmployee = await _employeeRepository.AddEmployeeAsync(employee);
+
+            return _mapper.Map<EmployeeDto>(createdEmployee);
         }
 
         public async  Task DeleteEmployeeByIdAsync(int id)
@@ -50,7 +52,7 @@ namespace WorkForceHub.Application.Services
              return _mapper.Map<List<EmployeeDto>>(employees); 
         }
 
-        public async Task<EmployeeDto?> GetEmployeeByCodeAsync(string code)
+        public async Task<EmployeeDto> GetEmployeeByCodeAsync(string code)
         {
             var employee = await _employeeRepository.GetEmployeeByCodeAsync(code);
             if (employee == null) 
@@ -60,7 +62,7 @@ namespace WorkForceHub.Application.Services
             return _mapper.Map<EmployeeDto>(employee);
         }
 
-        public async Task<EmployeeDto?> GetEmployeeByIdAsync(int id)
+        public async Task<EmployeeDto> GetEmployeeByIdAsync(int id)
         {
             var employee = await _employeeRepository.GetEmployeeByIdAsync(id);
             if (employee == null)
@@ -70,7 +72,7 @@ namespace WorkForceHub.Application.Services
             return _mapper.Map<EmployeeDto>(employee);
         }
 
-        public async Task<EmployeeDetailsDto?> GetEmployeeDetailsByIdAsync(int id)
+        public async Task<EmployeeDetailsDto> GetEmployeeDetailsByIdAsync(int id)
         {
             var employee = await _employeeRepository.GetEmployeeByIdAsync(id);
             if (employee == null)
@@ -80,7 +82,7 @@ namespace WorkForceHub.Application.Services
             return _mapper.Map<EmployeeDetailsDto>(employee);
         }
 
-        public async Task<UpdateEmployeeDto?> GetEmployeeForUpdateAsync(int id)
+        public async Task<UpdateEmployeeDto> GetEmployeeForUpdateAsync(int id)
         {
             var employee = await _employeeRepository.GetEmployeeByIdAsync(id);
             if (employee == null)
@@ -90,16 +92,18 @@ namespace WorkForceHub.Application.Services
             return _mapper.Map<UpdateEmployeeDto>(employee);
         }
 
-        public async Task UpdateEmployeeAsync(UpdateEmployeeDto updateEmployeeDto)
+        public async Task<EmployeeDto> UpdateEmployeeAsync(UpdateEmployeeDto updateEmployeeDto)
         {
-            _updateEmployeeValidator.ValidateAndThrow(updateEmployeeDto);
+            await _updateEmployeeValidator.ValidateAndThrowAsync(updateEmployeeDto);
             var employee = await _employeeRepository.GetEmployeeByIdAsync(updateEmployeeDto.EmployeeId);
             if (employee == null)
             {
                 throw new KeyNotFoundException($"Employee with ID {updateEmployeeDto.EmployeeId} not found.");
             }
             _mapper.Map(updateEmployeeDto, employee);
-            await _employeeRepository.UpdateEmployeeAsync(employee);
+            var updatedEmployee = await _employeeRepository.UpdateEmployeeAsync(employee);
+
+            return _mapper.Map<EmployeeDto>(updatedEmployee);
         }
     }
 }

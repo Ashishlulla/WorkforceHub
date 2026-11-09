@@ -16,10 +16,12 @@ namespace WorkForceHub.Infrastructure.Repositories
             _db = db;
         }
 
-        public async Task AddEmployeeAsync(Employee employee)
+        public async Task<Employee> AddEmployeeAsync(Employee employee)
         {
            await _db.Employees.AddAsync(employee);
            await _db.SaveChangesAsync();
+
+            return employee;
         }
 
         public async Task DeleteEmployeeByIdAsync(int id)
@@ -28,6 +30,8 @@ namespace WorkForceHub.Infrastructure.Repositories
             
             _db.Employees.Remove(employee!);
             await _db.SaveChangesAsync();
+
+            
             
         }
 
@@ -49,10 +53,12 @@ namespace WorkForceHub.Infrastructure.Repositories
         
         }
 
-        public Task UpdateEmployeeAsync(Employee employee)
+        public async Task<Employee> UpdateEmployeeAsync(Employee employee)
         {
            _db.Employees.Update(employee);
-           return _db.SaveChangesAsync();
+           await _db.SaveChangesAsync();
+
+            return employee;
         }
     }
 }

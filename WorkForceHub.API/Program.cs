@@ -15,12 +15,17 @@ builder.Services.AddApplication();
 
 builder.Services.AddOpenApi();
 
+//Add Swagger 
+builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
 
 
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
