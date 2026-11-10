@@ -1,4 +1,5 @@
 using WorkForceHub.API.Configurations;
+using WorkForceHub.API.Middlewares;
 using WorkForceHub.Application.Configurations;
 using WorkForceHub.Infrastructure.Configurations;
 
@@ -29,6 +30,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseAuthorization();
 

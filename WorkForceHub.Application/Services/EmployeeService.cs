@@ -30,6 +30,7 @@ namespace WorkForceHub.Application.Services
         {
             await _createEmployeeValidator.ValidateAndThrowAsync(createEmployeeDto);
             var employee = _mapper.Map<Employee>(createEmployeeDto);
+            employee.CreatedAt = DateTime.UtcNow;
             var createdEmployee = await _employeeRepository.AddEmployeeAsync(employee);
 
             return _mapper.Map<EmployeeDto>(createdEmployee);
