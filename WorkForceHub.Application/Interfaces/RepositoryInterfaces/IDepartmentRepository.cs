@@ -1,10 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using WorkForceHub.Domain.Entities;
 
 namespace WorkForceHub.Application.Interfaces.RepositoryInterfaces
 {
-    internal interface IDepartmentRepository
+    public interface IDepartmentRepository
     {
+        Task<Department> AddDepartmentAsync(Department department);
+        
+        Task<IEnumerable<Department>> GetDepartmentsAsync();
+
+        Task<Department?> GetDepartmentByIdAsync(int id);
+        
+        Task<Department> UpdateDepartmentAsync(Department department);
+        
+        Task DeleteDepartmentAsync(int id);
     }
 }
