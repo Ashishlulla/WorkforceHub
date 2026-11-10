@@ -9,22 +9,10 @@ namespace WorkForceHub.Infrastructure.Configurations
 {
     public static class AddInfrastructureExtensionConfiguration
     {
-        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
             //Add Repositories
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-
-
-
-            //Add Database
-
-            services.AddDbContext<WorkForceHubDbContext>(options => 
-            {
-                options.UseSqlServer(configuration.GetConnectionString());
-            });
-
-
-
 
 
             return services;

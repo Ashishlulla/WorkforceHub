@@ -1,0 +1,10 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace WorkForceHub.Infrastructure.Data.Configurations
+{
+    internal class DepartmentConfiguration
+    {
+    }
+}
