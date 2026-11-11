@@ -12,7 +12,12 @@ namespace WorkForceHub.Application.MappingProfile
             CreateMap<Department, DepartmentDto>();
 
             //CreateDepartmentDto ---> Department
-            CreateMap<CreateDepartmentDto, Department>();
+            CreateMap<CreateDepartmentDto, Department>()
+                .ForMember(dest => dest.DepartmentId, opt => opt.Ignore())
+                .ForMember(dest => dest.UpdatedAt, opt => opt.Ignore())
+                .ForMember(dest => dest.IsActive, opt => opt.MapFrom(src => true))
+                .ForMember(dest => dest.CreatedAt, opt => opt.Ignore());
+
 
             //UpdateDepartmentDto ---> Department
             CreateMap<UpdateDepartmentDto, Department>()

@@ -1,3 +1,4 @@
+using AutoMapper;
 using WorkForceHub.API.Configurations;
 using WorkForceHub.API.Middlewares;
 using WorkForceHub.Application.Configurations;
@@ -20,6 +21,8 @@ builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
+
 
 
 if (app.Environment.IsDevelopment())
