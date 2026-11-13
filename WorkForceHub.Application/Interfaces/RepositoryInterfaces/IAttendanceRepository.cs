@@ -11,9 +11,12 @@ namespace WorkForceHub.Application.Interfaces.RepositoryInterfaces
         Task<Attendance?> GetAttendanceByIdAsync(int id);
         
         Task<Attendance?> GetAttendanceDetailsByIdAsync(int id);
+
+        Task<Attendance?> GetAttendanceByEmployeeIdAndDateAsync(int employeeId, DateOnly date);
         
         Task<Attendance> UpdateAttendanceAsync(Attendance attendance);
         
         Task DeleteAttendanceByIdAsync(Attendance attendance);
+
     }
 }

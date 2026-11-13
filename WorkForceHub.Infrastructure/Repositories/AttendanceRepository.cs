@@ -31,6 +31,11 @@ namespace WorkForceHub.Infrastructure.Repositories
             await _db.SaveChangesAsync();
         }
 
+        public async Task<Attendance?> GetAttendanceByEmployeeIdAndDateAsync(int employeeId, DateOnly date)
+        {
+            return await _db.Attendances.FirstOrDefaultAsync(a => a.EmployeeId == employeeId && a.AttendanceDate == date);
+        }
+
         public async Task<Attendance?> GetAttendanceByIdAsync(int id)
         {
             return await _db.Attendances.FindAsync(id);

@@ -1,8 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using WorkForceHub.Application.Interfaces.RepositoryInterfaces;
-using WorkForceHub.Infrastructure.Data;
 using WorkForceHub.Infrastructure.Repositories;
 
 namespace WorkForceHub.Infrastructure.Configurations
@@ -14,9 +11,11 @@ namespace WorkForceHub.Infrastructure.Configurations
             //Add Repositories
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+            services.AddScoped<IAttendanceRepository, AttendanceRepository>();
 
 
             return services;
         }
     }
 }
+
