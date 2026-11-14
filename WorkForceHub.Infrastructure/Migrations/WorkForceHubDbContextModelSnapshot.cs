@@ -338,13 +338,19 @@ namespace WorkForceHub.Infrastructure.Migrations
                         .HasColumnType("time");
 
                     b.Property<int>("GracePeriodInMinutes")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
 
                     b.Property<bool>("IsOvernight")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.Property<int>("ShiftType")
                         .HasColumnType("int");
@@ -380,7 +386,7 @@ namespace WorkForceHub.Infrastructure.Migrations
                         .IsRequired();
 
                     b.HasOne("WorkForceHub.Domain.Entities.Shift", "Shift")
-                        .WithMany()
+                        .WithMany("employees")
                         .HasForeignKey("ShiftId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -426,6 +432,11 @@ namespace WorkForceHub.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Employee");
+                });
+
+            modelBuilder.Entity("WorkForceHub.Domain.Entities.Shift", b =>
+                {
+                    b.Navigation("employees");
                 });
 #pragma warning restore 612, 618
         }
