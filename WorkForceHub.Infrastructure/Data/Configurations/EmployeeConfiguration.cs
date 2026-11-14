@@ -16,7 +16,7 @@ namespace WorkForceHub.Infrastructure.Data.Configurations
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(e => e.Shift)
-                .WithMany(s=>s.employees)
+                .WithMany(s=>s.Employees)
                 .HasForeignKey(e => e.ShiftId)
                 .OnDelete(DeleteBehavior.Restrict);
         }

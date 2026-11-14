@@ -24,7 +24,7 @@ namespace WorkForceHub.Domain.Entities
         public DateTime? UpdatedAt { get; set; }
 
         //Navigation Property
-        public ICollection<Employee> employees { get; set; } = new List<Employee>();
+        public ICollection<Employee> Employees { get; set; } = new List<Employee>();
 
     }
 }

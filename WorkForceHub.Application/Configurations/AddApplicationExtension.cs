@@ -8,6 +8,7 @@ using WorkForceHub.Application.Services;
 using WorkForceHub.Application.Validators.Attendance;
 using WorkForceHub.Application.Validators.Department;
 using WorkForceHub.Application.Validators.Employee;
+using WorkForceHub.Application.Validators.Shift;
 
 namespace WorkForceHub.Application.Configurations
 {
@@ -21,6 +22,7 @@ namespace WorkForceHub.Application.Configurations
                 cfg.AddProfile<EmployeeMappingProfile>();
                 cfg.AddProfile<DepartmentMappingProfile>();
                 cfg.AddProfile<AttendanceMappingProfile>();
+                cfg.AddProfile<ShiftMappingProfile>();
             });
 
             //Validators
@@ -33,9 +35,13 @@ namespace WorkForceHub.Application.Configurations
             services.AddValidatorsFromAssemblyContaining<CreateDepartmentValidator>();
             services.AddValidatorsFromAssemblyContaining<UpdateDepartmentValidator>();
 
-            //AttendanceValidators
+            //Attendance Validators
             services.AddValidatorsFromAssemblyContaining<CreateAttendanceDtoValidator>();
             services.AddValidatorsFromAssemblyContaining<UpdateDepartmentValidator>();
+
+            //Shift Validators
+            services.AddValidatorsFromAssemblyContaining<CreateShiftDtoValidator>();
+            services.AddValidatorsFromAssemblyContaining<UpdateShiftDtoValidator>();
 
             //Add Bussiness Interfaes and Services
             services.AddScoped<IEmployeeService, EmployeeService>();
