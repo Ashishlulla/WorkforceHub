@@ -37,8 +37,10 @@ namespace WorkForceHub.Application.Configurations
             services.AddValidatorsFromAssemblyContaining<CreateAttendanceDtoValidator>();
             services.AddValidatorsFromAssemblyContaining<UpdateDepartmentValidator>();
 
+            //Add Bussiness Interfaes and Services
             services.AddScoped<IEmployeeService, EmployeeService>();
             services.AddScoped<IDepartmentService, DepartmentService>();
+            services.AddScoped<IAttendanceService, AttendanceService>();
 
             return services;
         }

@@ -30,37 +30,56 @@ namespace WorkForceHub.Application.Services
             _updateAttendanceDtoValidator = updateAttendanceDtoValidator;
         }
 
-        public async Task<AttendanceDto> CreateAttendanceAsync(CreateAttendanceDto createAttendanceDto)
-        {
-            await _createAttendanceDtoValidator.ValidateAndThrowAsync(createAttendanceDto);
 
-            var employee = await _employeeRepository.GetEmployeeByIdAsync(createAttendanceDto.EmployeeId);
+        public async Task<AttendanceDto> CreateAttendanceAsync(
+            CreateAttendanceDto createAttendanceDto)
+        {
+            
+            await _createAttendanceDtoValidator.ValidateAndThrowAsync(
+                createAttendanceDto);
+
+            
+            var employee = await _employeeRepository.GetEmployeeByIdAsync(
+                createAttendanceDto.EmployeeId);
 
             if (employee == null)
             {
-                throw new ArgumentException($"No employee found with Id: {createAttendanceDto.EmployeeId}");
+                throw new KeyNotFoundException(
+                    $"No employee found with Id: {createAttendanceDto.EmployeeId}");
             }
+
 
             DateOnly currentDay = DateOnly.FromDateTime(DateTime.Today);
 
-            if (createAttendanceDto.AttendanceDate !=  currentDay)
+            if (createAttendanceDto.AttendanceDate != currentDay)
             {
-                throw new KeyNotFoundException("Attendace can be only recorded for current date only.");
+                throw new ArgumentException(
+                    "Attendance can only be recorded for the current date.");
             }
 
-       
-            var isAttendanceExists = await _attendanceRepository.GetAttendanceByEmployeeIdAndDateAsync(createAttendanceDto.EmployeeId, currentDay);
+            // 4. Check duplicate attendance
+            var existingAttendance =
+                await _attendanceRepository.GetAttendanceByEmployeeIdAndDateAsync(
+                    createAttendanceDto.EmployeeId,
+                    currentDay);
 
-            if (isAttendanceExists != null) {
-
-                throw new ArgumentException("Attendance for employee already exists for today.");
+            if (existingAttendance != null)
+            {
+                throw new ArgumentException(
+                    $"Attendance already exists for employee Id: {createAttendanceDto.EmployeeId} today.");
             }
 
-            var  newAttendance = _mapper.Map<Attendance>(createAttendanceDto);
+            
+            var newAttendance = _mapper.Map<Attendance>(createAttendanceDto);
+
+            
             newAttendance.CreatedAt = DateTime.UtcNow;
 
-            var attendance = await _attendanceRepository.AddAttendanceAsync(newAttendance);
+            
+            var attendance = await _attendanceRepository.AddAttendanceAsync(
+                newAttendance);
 
+            
             return _mapper.Map<AttendanceDto>(attendance);
         }
 
@@ -105,30 +124,47 @@ namespace WorkForceHub.Application.Services
 
         public async Task<AttendanceDto> UpdateAttendanceAsync(int id, UpdateAttendanceDto updateAttendanceDto)
         {
+            //Dto Validation  check
             await  _updateAttendanceDtoValidator.ValidateAndThrowAsync(updateAttendanceDto);
 
+            //Route Id and Dto Id check 
             if (id != updateAttendanceDto.AttendanceId)
             {
-                throw new ArgumentException("Route Id and and User passed Id don not match");
+                throw new ArgumentException("Route and user passed Is do not match ");
             }
-            var existingAttendance = await _attendanceRepository.GetAttendanceByIdAsync(id);
 
-            if (existingAttendance == null)
+            //Retrieve the existing attendance
+            var retrievedAttendance = await _attendanceRepository.GetAttendanceByIdAsync(id);
+
+            if (retrievedAttendance == null)
             {
-                throw new KeyNotFoundException($"No Attendanc exists with Id: {id}");
+                throw new KeyNotFoundException($"No attendance exists with Id: {id}");
             }
+
+            //check employee exists
             var retrievedEmployee = await _employeeRepository.GetEmployeeByIdAsync(updateAttendanceDto.EmployeeId);
 
             if (retrievedEmployee == null)
             {
-                throw new KeyNotFoundException($"No employee exists with Id: {updateAttendanceDto.EmployeeId}");
+                throw new KeyNotFoundException($"No employee found with Id: {updateAttendanceDto.EmployeeId}");   
             }
 
-            var attendance = _mapper.Map<Attendance>(existingAttendance);
-            attendance.UpdatedAt = DateTime.Today;
+            //Duplicated Attendance check
+            var existingRecord = await _attendanceRepository.GetAttendanceByEmployeeIdAndDateAsync(updateAttendanceDto.EmployeeId, updateAttendanceDto.AttendanceDate);
 
-            var 
+            if (existingRecord != null && existingRecord.AttendanceId != id)
+            {
+                throw new ArgumentException(
+    $"Attendance already exists for employee Id: {updateAttendanceDto.EmployeeId} on {updateAttendanceDto.AttendanceDate}.");
+            }
 
+            var attendance = _mapper.Map(updateAttendanceDto, retrievedAttendance);
+            
+            attendance.UpdatedAt = DateTime.UtcNow;
+
+            var newAttendace = await _attendanceRepository.UpdateAttendanceAsync(attendance);
+
+            return _mapper.Map<AttendanceDto>(newAttendace);
         }
     }
 }
