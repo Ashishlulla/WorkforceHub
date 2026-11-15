@@ -12,6 +12,7 @@ namespace WorkForceHub.Infrastructure.Configurations
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddScoped<IDepartmentRepository, DepartmentRepository>();
             services.AddScoped<IAttendanceRepository, AttendanceRepository>();
+            services.AddScoped<IShiftRepository, ShiftRepository>();
 
 
             return services;
