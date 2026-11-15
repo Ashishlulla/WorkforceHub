@@ -25,7 +25,7 @@ namespace WorkForceHub.API.Middlewares
             catch (Exception ex)
             {
                 if (ex is ValidationException or ArgumentException
-                    or KeyNotFoundException or UnauthorizedAccessException)
+                    or KeyNotFoundException or UnauthorizedAccessException or InvalidOperationException)
                 {
                     _logger.LogWarning(ex, "A client request error occurred.");
                 }
@@ -86,6 +86,16 @@ namespace WorkForceHub.API.Middlewares
                         {
                             statusCode = StatusCodes.Status403Forbidden,
                             message = "Unauthorized access."
+                        });
+                        break;
+
+                    case InvalidOperationException:
+                        context.Response.StatusCode = StatusCodes.Status409Conflict;
+
+                        await context.Response.WriteAsJsonAsync(new {
+                        
+                            statusCode = StatusCodes.Status409Conflict,
+                            message = ex.Message
                         });
                         break;
 

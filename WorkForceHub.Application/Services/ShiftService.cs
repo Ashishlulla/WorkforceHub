@@ -44,10 +44,15 @@ namespace WorkForceHub.Application.Services
 
         public async Task DeleteShiftAsync(int id)
         {
-            var shift = await _shiftRepository.GetShiftByIdAsync(id);
+            var shift = await _shiftRepository.GetShiftDetailsByIdAsync(id);
             if (shift == null) {
 
                 throw new KeyNotFoundException($"No Shift found with Id: {id}");
+            }
+
+            if (shift.Employees.Any()) {
+
+                throw new InvalidOperationException("Cannot delete shift because employees are assigned to it.");
             }
 
             await _shiftRepository.DeleteShiftAsync(shift);
@@ -83,8 +88,6 @@ namespace WorkForceHub.Application.Services
 
             return _mapper.Map<List<ShiftDto>>(shifts);
         }
-
-        
 
         public async Task<ShiftDto> UpdateShiftAsync(int id, UpdateShiftDto updateShiftDto)
         {
