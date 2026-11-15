@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using System.Xml.Serialization;
 using WorkForceHub.Application.DTOs.Shift;
 using WorkForceHub.Domain.Entities;
 
@@ -12,7 +13,9 @@ namespace WorkForceHub.Application.MappingProfile
             CreateMap<Shift, ShiftDto>();
 
             //Shift ---> ShiftDetailsDto 
-            CreateMap<Shift, ShiftDetailsDto>();
+            CreateMap<Shift, ShiftDetailsDto>()
+                .ForMember(dest => dest.TotalEmployees, opt => opt.MapFrom(src => src.Employees.Count))
+                .ForMember(dest => dest.EmployeeNames, opt => opt.MapFrom(src => src.Employees.Select(e => e.FirstName + " " + e.LastName)));
 
             //CreateShiftDto ---> Shift
             CreateMap<CreateShiftDto, Shift>()

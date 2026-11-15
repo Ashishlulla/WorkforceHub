@@ -1,4 +1,5 @@
-﻿using WorkForceHub.Domain.Enums;
+﻿
+using WorkForceHub.Domain.Enums;
 
 namespace WorkForceHub.Application.DTOs.Shift
 {
@@ -6,7 +7,7 @@ namespace WorkForceHub.Application.DTOs.Shift
     {
         public int ShiftId { get; set; }
 
-        public ShiftType ShiftType { get; set; } 
+        public ShiftType ShiftType { get; set; }
 
         public TimeSpan StartTime { get; set; }
 
@@ -21,5 +22,9 @@ namespace WorkForceHub.Application.DTOs.Shift
         public DateTime CreatedAt { get; set; }
 
         public DateTime? UpdatedAt { get; set; }
+
+        public int TotalEmployees { get; set; }
+
+        public List<string> EmployeeNames { get; set; } = new();
     }
 }

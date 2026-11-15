@@ -37,7 +37,7 @@ namespace WorkForceHub.Application.Configurations
 
             //Attendance Validators
             services.AddValidatorsFromAssemblyContaining<CreateAttendanceDtoValidator>();
-            services.AddValidatorsFromAssemblyContaining<UpdateDepartmentValidator>();
+            services.AddValidatorsFromAssemblyContaining<UpdateAttendanceDtoValidator>();
 
             //Shift Validators
             services.AddValidatorsFromAssemblyContaining<CreateShiftDtoValidator>();
