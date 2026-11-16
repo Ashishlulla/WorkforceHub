@@ -23,7 +23,7 @@ namespace WorkForceHub.Infrastructure.Repositories
             return leaveRequest;
         }
 
-        public async Task DeleteLeaveRequestByIdAsync(LeaveRequest leaveRequest)
+        public async Task DeleteLeaveRequestAsync(LeaveRequest leaveRequest)
         {
             _db.LeaveRequests.Remove(leaveRequest);
             await _db.SaveChangesAsync();
@@ -36,7 +36,7 @@ namespace WorkForceHub.Infrastructure.Repositories
 
         public async Task<LeaveRequest?> GetLeaveRequestByIdAsync(int leaveRequestId)
         {
-            return await _db.LeaveRequests.FirstOrDefaultAsync(lr => lr.LeaveRequestId == leaveRequestId);
+            return await _db.LeaveRequests.Include(lr=>lr.Employee).FirstOrDefaultAsync(lr => lr.LeaveRequestId == leaveRequestId);
         }
 
         public async Task<LeaveRequest?> GetLeaveRequestDetailsByIdAsync(int leaveRequestId)

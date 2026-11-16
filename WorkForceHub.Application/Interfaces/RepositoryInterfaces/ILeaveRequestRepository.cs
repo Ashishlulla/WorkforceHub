@@ -16,7 +16,7 @@ namespace WorkForceHub.Application.Interfaces.RepositoryInterfaces
 
         Task<LeaveRequest> UpdateLeaveRequestAsync(LeaveRequest leaveRequest);
 
-        Task DeleteLeaveRequestByIdAsync(LeaveRequest leaveRequest);
+        Task DeleteLeaveRequestAsync(LeaveRequest leaveRequest);
 
     }
 }
