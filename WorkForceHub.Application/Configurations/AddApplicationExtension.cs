@@ -1,13 +1,12 @@
-﻿using AutoMapper;
-using FluentValidation;
+﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using WorkForceHub.Application.DTOs.Attendance;
 using WorkForceHub.Application.Interfaces.ServiceInterfaces;
 using WorkForceHub.Application.MappingProfile;
 using WorkForceHub.Application.Services;
 using WorkForceHub.Application.Validators.Attendance;
 using WorkForceHub.Application.Validators.Department;
 using WorkForceHub.Application.Validators.Employee;
+using WorkForceHub.Application.Validators.LeaveRequest;
 using WorkForceHub.Application.Validators.Shift;
 
 namespace WorkForceHub.Application.Configurations
@@ -23,6 +22,7 @@ namespace WorkForceHub.Application.Configurations
                 cfg.AddProfile<DepartmentMappingProfile>();
                 cfg.AddProfile<AttendanceMappingProfile>();
                 cfg.AddProfile<ShiftMappingProfile>();
+                cfg.AddProfile<LeaveRequestMappingProfile>();
             });
 
             //Validators
@@ -42,6 +42,10 @@ namespace WorkForceHub.Application.Configurations
             //Shift Validators
             services.AddValidatorsFromAssemblyContaining<CreateShiftDtoValidator>();
             services.AddValidatorsFromAssemblyContaining<UpdateShiftDtoValidator>();
+
+            //LeaveRequestValidators
+            services.AddValidatorsFromAssemblyContaining<CreateLeaveRequestDtoValidator>();
+
 
             //Add Bussiness Interfaes and Services
             services.AddScoped<IEmployeeService, EmployeeService>();
