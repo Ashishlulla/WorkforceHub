@@ -386,7 +386,7 @@ namespace WorkForceHub.Infrastructure.Migrations
                         .IsRequired();
 
                     b.HasOne("WorkForceHub.Domain.Entities.Shift", "Shift")
-                        .WithMany("employees")
+                        .WithMany("Employees")
                         .HasForeignKey("ShiftId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -398,16 +398,18 @@ namespace WorkForceHub.Infrastructure.Migrations
 
             modelBuilder.Entity("WorkForceHub.Domain.Entities.LeaveRequest", b =>
                 {
-                    b.HasOne("WorkForceHub.Domain.Entities.Employee", null)
-                        .WithMany()
+                    b.HasOne("WorkForceHub.Domain.Entities.Employee", "ApprovedByEmployee")
+                        .WithMany("ApprovedLeaveRequests")
                         .HasForeignKey("ApprovedByEmployeeId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("WorkForceHub.Domain.Entities.Employee", "Employee")
-                        .WithMany()
+                        .WithMany("LeaveRequests")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("ApprovedByEmployee");
 
                     b.Navigation("Employee");
                 });
@@ -434,9 +436,16 @@ namespace WorkForceHub.Infrastructure.Migrations
                     b.Navigation("Employee");
                 });
 
+            modelBuilder.Entity("WorkForceHub.Domain.Entities.Employee", b =>
+                {
+                    b.Navigation("ApprovedLeaveRequests");
+
+                    b.Navigation("LeaveRequests");
+                });
+
             modelBuilder.Entity("WorkForceHub.Domain.Entities.Shift", b =>
                 {
-                    b.Navigation("employees");
+                    b.Navigation("Employees");
                 });
 #pragma warning restore 612, 618
         }

@@ -26,5 +26,7 @@ namespace WorkForceHub.Domain.Entities
         //Navigation Property
 
         public Employee Employee { get; set; } = null!;
+
+        public Employee? ApprovedByEmployee { get; set; }
     }
 }

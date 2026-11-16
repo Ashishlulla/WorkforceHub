@@ -67,6 +67,7 @@ namespace WorkForceHub.API.Middlewares
                                 message = error.ErrorMessage
                             })
                         });
+
                         break;
 
                     case ArgumentException:
@@ -77,6 +78,7 @@ namespace WorkForceHub.API.Middlewares
                             statusCode = StatusCodes.Status400BadRequest,
                             message = ex.Message
                         });
+
                         break;
 
                     case UnauthorizedAccessException:
@@ -87,6 +89,7 @@ namespace WorkForceHub.API.Middlewares
                             statusCode = StatusCodes.Status403Forbidden,
                             message = "Unauthorized access."
                         });
+
                         break;
 
                     case InvalidOperationException:
@@ -97,9 +100,11 @@ namespace WorkForceHub.API.Middlewares
                             statusCode = StatusCodes.Status409Conflict,
                             message = ex.Message
                         });
+
                         break;
 
                     default:
+
                         context.Response.StatusCode = StatusCodes.Status500InternalServerError;
 
                         await context.Response.WriteAsJsonAsync(new
@@ -107,6 +112,7 @@ namespace WorkForceHub.API.Middlewares
                             statusCode = StatusCodes.Status500InternalServerError,
                             message = "An unexpected server error occurred."
                         });
+
                         break;
                 }
             }

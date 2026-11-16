@@ -10,14 +10,14 @@ namespace WorkForceHub.Infrastructure.Data.Configurations
             builder.HasKey(lr=>lr.LeaveRequestId);
 
             builder.HasOne(lr => lr.Employee)
-                .WithMany()
+                .WithMany(lr=>lr.LeaveRequests)
                 .HasForeignKey(lr => lr.EmployeeId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder.HasOne<Employee>() 
-                .WithMany()
-                .HasForeignKey(lr => lr.ApprovedByEmployeeId)
-                .OnDelete(DeleteBehavior.Restrict);
+            builder.HasOne(lr => lr.ApprovedByEmployee)
+                 .WithMany(lr => lr.ApprovedLeaveRequests)
+                 .HasForeignKey(lr => lr.ApprovedByEmployeeId)
+                 .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

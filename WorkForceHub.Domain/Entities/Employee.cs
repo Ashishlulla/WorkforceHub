@@ -45,5 +45,9 @@ namespace WorkForceHub.Domain.Entities
 
         public Department Department { get; set; } = null!;
         public Shift Shift { get; set; } = null!;
+
+        public ICollection<LeaveRequest> LeaveRequests { get; set; } = new List<LeaveRequest>();
+
+        public ICollection<LeaveRequest> ApprovedLeaveRequests { get; set; } = new List<LeaveRequest>();
     }
 }
