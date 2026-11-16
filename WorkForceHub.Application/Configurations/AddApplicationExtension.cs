@@ -45,6 +45,7 @@ namespace WorkForceHub.Application.Configurations
 
             //LeaveRequestValidators
             services.AddValidatorsFromAssemblyContaining<CreateLeaveRequestDtoValidator>();
+            services.AddValidatorsFromAssemblyContaining<UpdateLeaveRequestStatusDtoValidator>();
 
 
             //Add Bussiness Interfaes and Services
