@@ -53,6 +53,7 @@ namespace WorkForceHub.Application.Configurations
             services.AddScoped<IDepartmentService, DepartmentService>();
             services.AddScoped<IAttendanceService, AttendanceService>();
             services.AddScoped<IShiftService, ShiftService>();
+            services.AddScoped<ILeaveRequestService, LeaveRequestService>();
 
             return services;
         }
