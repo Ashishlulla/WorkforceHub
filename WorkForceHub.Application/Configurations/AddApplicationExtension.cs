@@ -23,6 +23,7 @@ namespace WorkForceHub.Application.Configurations
                 cfg.AddProfile<AttendanceMappingProfile>();
                 cfg.AddProfile<ShiftMappingProfile>();
                 cfg.AddProfile<LeaveRequestMappingProfile>();
+                cfg.AddProfile<PayrollMappingProfile>();
             });
 
             //Validators
@@ -54,6 +55,7 @@ namespace WorkForceHub.Application.Configurations
             services.AddScoped<IAttendanceService, AttendanceService>();
             services.AddScoped<IShiftService, ShiftService>();
             services.AddScoped<ILeaveRequestService, LeaveRequestService>();
+            services.AddScoped<IPayrollService, PayrollService>();
 
             return services;
         }

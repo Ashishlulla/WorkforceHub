@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using WorkForceHub.Domain.Enums;
 
 namespace WorkForceHub.Application.DTOs.Payroll
 {
-    internal class UpdatePayrollStatusDto
+    public class UpdatePayrollStatusDto
     {
+         public PayrollStatus Status { get; set; } 
     }
 }
