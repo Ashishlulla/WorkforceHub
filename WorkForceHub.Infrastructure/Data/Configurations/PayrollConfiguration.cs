@@ -28,9 +28,17 @@ namespace WorkForceHub.Infrastructure.Data.Configurations
             builder.HasKey(p => p.PayrollId);
 
             builder.HasOne(p => p.Employee)
-                .WithMany()
+                .WithMany(p=>p.Payrolls)
                 .HasForeignKey(p => p.EmployeeId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.HasIndex(p=>new
+            {
+                p.EmployeeId,
+                p.PayrollYear,
+                p.PayrollMonth
+
+            }).IsUnique();
         }
     }
 }

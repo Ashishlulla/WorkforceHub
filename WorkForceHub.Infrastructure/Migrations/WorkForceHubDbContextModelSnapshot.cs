@@ -318,7 +318,8 @@ namespace WorkForceHub.Infrastructure.Migrations
 
                     b.HasKey("PayrollId");
 
-                    b.HasIndex("EmployeeId");
+                    b.HasIndex("EmployeeId", "PayrollYear", "PayrollMonth")
+                        .IsUnique();
 
                     b.ToTable("Payrolls");
                 });
@@ -428,7 +429,7 @@ namespace WorkForceHub.Infrastructure.Migrations
             modelBuilder.Entity("WorkForceHub.Domain.Entities.Payroll", b =>
                 {
                     b.HasOne("WorkForceHub.Domain.Entities.Employee", "Employee")
-                        .WithMany()
+                        .WithMany("Payrolls")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -441,6 +442,8 @@ namespace WorkForceHub.Infrastructure.Migrations
                     b.Navigation("ApprovedLeaveRequests");
 
                     b.Navigation("LeaveRequests");
+
+                    b.Navigation("Payrolls");
                 });
 
             modelBuilder.Entity("WorkForceHub.Domain.Entities.Shift", b =>
