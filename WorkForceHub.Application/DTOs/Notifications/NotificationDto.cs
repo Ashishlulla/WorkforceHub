@@ -21,5 +21,8 @@ namespace WorkForceHub.Application.DTOs.Notifications
         public DateTime CreatedAt { get; set; }
 
         public DateTime? ReadAt { get; set; }
+
+        public bool IsReadByAdmin { get; set; }
+        public DateTime? AdminReadAt { get; set; }
     }
 }

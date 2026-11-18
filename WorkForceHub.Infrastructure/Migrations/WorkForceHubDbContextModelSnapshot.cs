@@ -56,7 +56,7 @@ namespace WorkForceHub.Infrastructure.Migrations
                     b.HasIndex("EmployeeId", "AttendanceDate")
                         .IsUnique();
 
-                    b.ToTable("Attendances", (string)null);
+                    b.ToTable("Attendances");
                 });
 
             modelBuilder.Entity("WorkForceHub.Domain.Entities.Department", b =>
@@ -90,7 +90,7 @@ namespace WorkForceHub.Infrastructure.Migrations
 
                     b.HasKey("DepartmentId");
 
-                    b.ToTable("Departments", (string)null);
+                    b.ToTable("Departments");
                 });
 
             modelBuilder.Entity("WorkForceHub.Domain.Entities.Employee", b =>
@@ -174,7 +174,7 @@ namespace WorkForceHub.Infrastructure.Migrations
 
                     b.HasIndex("ShiftId");
 
-                    b.ToTable("Employees", (string)null);
+                    b.ToTable("Employees");
                 });
 
             modelBuilder.Entity("WorkForceHub.Domain.Entities.LeaveRequest", b =>
@@ -226,7 +226,7 @@ namespace WorkForceHub.Infrastructure.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.ToTable("LeaveRequests", (string)null);
+                    b.ToTable("LeaveRequests");
                 });
 
             modelBuilder.Entity("WorkForceHub.Domain.Entities.Notification", b =>
@@ -237,6 +237,9 @@ namespace WorkForceHub.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("NotificationId"));
 
+                    b.Property<DateTime?>("AdminReadAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -244,6 +247,9 @@ namespace WorkForceHub.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<bool>("IsRead")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsReadByAdmin")
                         .HasColumnType("bit");
 
                     b.Property<string>("Message")
@@ -264,7 +270,7 @@ namespace WorkForceHub.Infrastructure.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.ToTable("Notifications", (string)null);
+                    b.ToTable("Notifications");
                 });
 
             modelBuilder.Entity("WorkForceHub.Domain.Entities.Payroll", b =>
@@ -321,7 +327,7 @@ namespace WorkForceHub.Infrastructure.Migrations
                     b.HasIndex("EmployeeId", "PayrollYear", "PayrollMonth")
                         .IsUnique();
 
-                    b.ToTable("Payrolls", (string)null);
+                    b.ToTable("Payrolls");
                 });
 
             modelBuilder.Entity("WorkForceHub.Domain.Entities.Shift", b =>
@@ -364,7 +370,7 @@ namespace WorkForceHub.Infrastructure.Migrations
 
                     b.HasKey("ShiftId");
 
-                    b.ToTable("Shifts", (string)null);
+                    b.ToTable("Shifts");
                 });
 
             modelBuilder.Entity("WorkForceHub.Domain.Entities.Attendance", b =>
@@ -418,7 +424,7 @@ namespace WorkForceHub.Infrastructure.Migrations
             modelBuilder.Entity("WorkForceHub.Domain.Entities.Notification", b =>
                 {
                     b.HasOne("WorkForceHub.Domain.Entities.Employee", "Employee")
-                        .WithMany()
+                        .WithMany("Notifications")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -442,6 +448,8 @@ namespace WorkForceHub.Infrastructure.Migrations
                     b.Navigation("ApprovedLeaveRequests");
 
                     b.Navigation("LeaveRequests");
+
+                    b.Navigation("Notifications");
 
                     b.Navigation("Payrolls");
                 });

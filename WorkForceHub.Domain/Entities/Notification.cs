@@ -20,6 +20,10 @@ namespace WorkForceHub.Domain.Entities
 
         public DateTime? ReadAt { get; set; }
 
+        public bool IsReadByAdmin { get; set; } = false;
+        
+        public DateTime? AdminReadAt { get; set; }
+
         // Navigation Property
 
         public Employee Employee { get; set; } = null!;
