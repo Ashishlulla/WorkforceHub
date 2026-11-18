@@ -51,5 +51,7 @@ namespace WorkForceHub.Domain.Entities
         public ICollection<LeaveRequest> ApprovedLeaveRequests { get; set; } = new List<LeaveRequest>();
 
         public ICollection<Payroll> Payrolls { get; set; } = new List<Payroll>();
+
+        public ICollection<Notification> Notifications { get; set; } = new List<Notification>();
     }
 }

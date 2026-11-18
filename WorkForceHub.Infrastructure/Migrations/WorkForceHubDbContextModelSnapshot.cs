@@ -56,7 +56,7 @@ namespace WorkForceHub.Infrastructure.Migrations
                     b.HasIndex("EmployeeId", "AttendanceDate")
                         .IsUnique();
 
-                    b.ToTable("Attendances");
+                    b.ToTable("Attendances", (string)null);
                 });
 
             modelBuilder.Entity("WorkForceHub.Domain.Entities.Department", b =>
@@ -90,7 +90,7 @@ namespace WorkForceHub.Infrastructure.Migrations
 
                     b.HasKey("DepartmentId");
 
-                    b.ToTable("Departments");
+                    b.ToTable("Departments", (string)null);
                 });
 
             modelBuilder.Entity("WorkForceHub.Domain.Entities.Employee", b =>
@@ -174,7 +174,7 @@ namespace WorkForceHub.Infrastructure.Migrations
 
                     b.HasIndex("ShiftId");
 
-                    b.ToTable("Employees");
+                    b.ToTable("Employees", (string)null);
                 });
 
             modelBuilder.Entity("WorkForceHub.Domain.Entities.LeaveRequest", b =>
@@ -226,7 +226,7 @@ namespace WorkForceHub.Infrastructure.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.ToTable("LeaveRequests");
+                    b.ToTable("LeaveRequests", (string)null);
                 });
 
             modelBuilder.Entity("WorkForceHub.Domain.Entities.Notification", b =>
@@ -264,7 +264,7 @@ namespace WorkForceHub.Infrastructure.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.ToTable("Notifications");
+                    b.ToTable("Notifications", (string)null);
                 });
 
             modelBuilder.Entity("WorkForceHub.Domain.Entities.Payroll", b =>
@@ -321,7 +321,7 @@ namespace WorkForceHub.Infrastructure.Migrations
                     b.HasIndex("EmployeeId", "PayrollYear", "PayrollMonth")
                         .IsUnique();
 
-                    b.ToTable("Payrolls");
+                    b.ToTable("Payrolls", (string)null);
                 });
 
             modelBuilder.Entity("WorkForceHub.Domain.Entities.Shift", b =>
@@ -364,7 +364,7 @@ namespace WorkForceHub.Infrastructure.Migrations
 
                     b.HasKey("ShiftId");
 
-                    b.ToTable("Shifts");
+                    b.ToTable("Shifts", (string)null);
                 });
 
             modelBuilder.Entity("WorkForceHub.Domain.Entities.Attendance", b =>

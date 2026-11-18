@@ -11,7 +11,7 @@ namespace WorkForceHub.Infrastructure.Data.Configurations
             builder.HasKey(n => n.NotificationId);
 
             builder.HasOne(n => n.Employee)
-                .WithMany()
+                .WithMany(n=>n.Notifications)
                 .HasForeignKey(n => n.EmployeeId)
                 .OnDelete(DeleteBehavior.Restrict);
         }

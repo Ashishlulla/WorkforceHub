@@ -1,5 +1,4 @@
-﻿
-using WorkForceHub.Domain.Enums;
+﻿using WorkForceHub.Domain.Enums;
 
 namespace WorkForceHub.Domain.Entities
 {
@@ -8,7 +7,7 @@ namespace WorkForceHub.Domain.Entities
         public int NotificationId { get; set; }
 
         public int EmployeeId { get; set; }
-
+        
         public string Title { get; set; } = string.Empty;
 
         public string Message { get; set; } = string.Empty;
