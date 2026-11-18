@@ -61,6 +61,7 @@ namespace WorkForceHub.Application.Configurations
             services.AddScoped<IShiftService, ShiftService>();
             services.AddScoped<ILeaveRequestService, LeaveRequestService>();
             services.AddScoped<IPayrollService, PayrollService>();
+            services.AddScoped<INotificationService, NotificationService>();
 
             return services;
         }

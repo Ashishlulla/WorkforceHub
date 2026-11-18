@@ -15,6 +15,7 @@ namespace WorkForceHub.Infrastructure.Configurations
             services.AddScoped<IShiftRepository, ShiftRepository>();
             services.AddScoped<ILeaveRequestRepository, LeaveRequestRepository>();
             services.AddScoped<IPayrollRepository, PayrollRepository>();
+            services.AddScoped<INotificationRepository, NotificationRepository>();
 
             return services;
         }
