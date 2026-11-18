@@ -7,6 +7,7 @@ using WorkForceHub.Application.Validators.Attendance;
 using WorkForceHub.Application.Validators.Department;
 using WorkForceHub.Application.Validators.Employee;
 using WorkForceHub.Application.Validators.LeaveRequest;
+using WorkForceHub.Application.Validators.Notifications;
 using WorkForceHub.Application.Validators.Shift;
 
 namespace WorkForceHub.Application.Configurations
@@ -24,29 +25,33 @@ namespace WorkForceHub.Application.Configurations
                 cfg.AddProfile<ShiftMappingProfile>();
                 cfg.AddProfile<LeaveRequestMappingProfile>();
                 cfg.AddProfile<PayrollMappingProfile>();
+                cfg.AddProfile<NotificationMappingProfile>();
             });
 
-            //Validators
+            //Dtos Validators
 
-            //Employee Validators
+            //EmployeeDtos Validators
             services.AddValidatorsFromAssemblyContaining<CreateEmployeeValidator>();
             services.AddValidatorsFromAssemblyContaining<UpdateEmployeeValidator>();
 
-            //Department Validators
+            //DepartmentDtos Validators
             services.AddValidatorsFromAssemblyContaining<CreateDepartmentValidator>();
             services.AddValidatorsFromAssemblyContaining<UpdateDepartmentValidator>();
 
-            //Attendance Validators
+            //AttendanceDtos Validators
             services.AddValidatorsFromAssemblyContaining<CreateAttendanceDtoValidator>();
             services.AddValidatorsFromAssemblyContaining<UpdateAttendanceDtoValidator>();
 
-            //Shift Validators
+            //ShiftDtos Validators
             services.AddValidatorsFromAssemblyContaining<CreateShiftDtoValidator>();
             services.AddValidatorsFromAssemblyContaining<UpdateShiftDtoValidator>();
 
-            //LeaveRequestValidators
+            //LeaveRequestDtos Validators
             services.AddValidatorsFromAssemblyContaining<CreateLeaveRequestDtoValidator>();
             services.AddValidatorsFromAssemblyContaining<UpdateLeaveRequestStatusDtoValidator>();
+
+            //NotificationDtos Validators
+            services.AddValidatorsFromAssemblyContaining<CreateNotificationDtoValidator>();
 
 
             //Add Bussiness Interfaes and Services
