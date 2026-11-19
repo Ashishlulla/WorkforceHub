@@ -1,0 +1,91 @@
+<div class="app-container">
+
+  <!-- Sidebar -->
+  <aside class="sidebar" [class.collapsed]="isSidebarCollapsed()">
+    <div class="sidebar-header">
+      <h3>WorkForceHub</h3>
+    </div>
+
+    <nav class="sidebar-nav">
+      
+<nav class="sidebar-nav">
+
+  <a href="#" class="nav-link">
+    <span class="nav-icon">📊</span>
+    <span class="nav-text">Dashboard</span>
+  </a>
+
+  <a href="#" class="nav-link">
+    <span class="nav-icon">👥</span>
+    <span class="nav-text">Employees</span>
+  </a>
+
+  <a href="#" class="nav-link">
+    <span class="nav-icon">🏢</span>
+    <span class="nav-text">Departments</span>
+  </a>
+
+  <a href="#" class="nav-link">
+    <span class="nav-icon">🕒</span>
+    <span class="nav-text">Attendance</span>
+  </a>
+
+  <a href="#" class="nav-link">
+    <span class="nav-icon">📅</span>
+    <span class="nav-text">Shifts</span>
+  </a>
+
+  <a href="#" class="nav-link">
+    <span class="nav-icon">📝</span>
+    <span class="nav-text">Leave Management</span>
+  </a>
+
+  <a href="#" class="nav-link">
+    <span class="nav-icon">💰</span>
+    <span class="nav-text">Payroll</span>
+  </a>
+
+  <a href="#" class="nav-link">
+    <span class="nav-icon">🔔</span>
+    <span class="nav-text">Notifications</span>
+  </a>
+
+  <a href="#" class="nav-link">
+    <span class="nav-icon">📈</span>
+    <span class="nav-text">Reports</span>
+  </a>
+
+  <a href="#" class="nav-link">
+    <span class="nav-icon">⚙️</span>
+    <span class="nav-text">Settings</span>
+  </a>
+
+</nav>
+
+    </nav>
+  </aside>
+
+  <!-- Main Area -->
+  <div class="main-area">
+
+    <!-- Top Navbar -->
+    <header class="top-navbar">
+      <div class="navbar-left">
+        <button class="sidebar-toggle" (click)="toggleSidebar()">
+          ☰
+        </button>
+      </div>
+
+      <div class="navbar-right">
+        <!-- Notifications and User Profile will come here -->
+      </div>
+    </header>
+
+    <!-- Page Content -->
+    <main class="page-content">
+      <router-outlet></router-outlet>
+    </main>
+
+  </div>
+
+</div>
