@@ -1,66 +1,69 @@
+
 <div class="app-container">
 
   <!-- Sidebar -->
   <aside class="sidebar" [class.collapsed]="isSidebarCollapsed()">
+
+    <!-- Sidebar Header -->
     <div class="sidebar-header">
-      <h3>WorkForceHub</h3>
+      <div class="brand-logo">
+        <i class="fa-solid fa-users"></i>
+        <span>WorkForceHub</span>
+      </div>
     </div>
 
+    <!-- Sidebar Navigation -->
     <nav class="sidebar-nav">
-      
-<nav class="sidebar-nav">
 
-  <a href="#" class="nav-link">
-    <span class="nav-icon">📊</span>
-    <span class="nav-text">Dashboard</span>
-  </a>
+      <a href="#" class="nav-link">
+        <i class="fa-solid fa-gauge-high nav-icon"></i>
+        <span class="nav-text">Dashboard</span>
+      </a>
 
-  <a href="#" class="nav-link">
-    <span class="nav-icon">👥</span>
-    <span class="nav-text">Employees</span>
-  </a>
+      <a routerLink="/employees" routerLinkActive="active" class="nav-link">
+        <i class="fa-solid fa-users nav-icon"></i>
+        <span class="nav-text">Employees</span>
+      </a>
 
-  <a href="#" class="nav-link">
-    <span class="nav-icon">🏢</span>
-    <span class="nav-text">Departments</span>
-  </a>
+      <a href="#" class="nav-link">
+        <i class="fa-solid fa-building nav-icon"></i>
+        <span class="nav-text">Departments</span>
+      </a>
 
-  <a href="#" class="nav-link">
-    <span class="nav-icon">🕒</span>
-    <span class="nav-text">Attendance</span>
-  </a>
+      <a href="#" class="nav-link">
+        <i class="fa-solid fa-calendar-check nav-icon"></i>
+        <span class="nav-text">Attendance</span>
+      </a>
 
-  <a href="#" class="nav-link">
-    <span class="nav-icon">📅</span>
-    <span class="nav-text">Shifts</span>
-  </a>
+      <a href="#" class="nav-link">
+        <i class="fa-solid fa-user-clock nav-icon"></i>
+        <span class="nav-text">Shifts</span>
+      </a>
 
-  <a href="#" class="nav-link">
-    <span class="nav-icon">📝</span>
-    <span class="nav-text">Leave Management</span>
-  </a>
+      <a href="#" class="nav-link">
+        <i class="fa-solid fa-calendar-days nav-icon"></i>
+        <span class="nav-text">Leave Management</span>
+      </a>
 
-  <a href="#" class="nav-link">
-    <span class="nav-icon">💰</span>
-    <span class="nav-text">Payroll</span>
-  </a>
+      <a href="#" class="nav-link">
+        <i class="fa-solid fa-money-bill-wave nav-icon"></i>
+        <span class="nav-text">Payroll</span>
+      </a>
 
-  <a href="#" class="nav-link">
-    <span class="nav-icon">🔔</span>
-    <span class="nav-text">Notifications</span>
-  </a>
+      <a href="#" class="nav-link">
+        <i class="fa-solid fa-bell nav-icon"></i>
+        <span class="nav-text">Notifications</span>
+      </a>
 
-  <a href="#" class="nav-link">
-    <span class="nav-icon">📈</span>
-    <span class="nav-text">Reports</span>
-  </a>
+      <a href="#" class="nav-link">
+        <i class="fa-solid fa-chart-column nav-icon"></i>
+        <span class="nav-text">Reports</span>
+      </a>
 
-  <a href="#" class="nav-link">
-    <span class="nav-icon">⚙️</span>
-    <span class="nav-text">Settings</span>
-  </a>
-
-</nav>
+      <a href="#" class="nav-link">
+        <i class="fa-solid fa-gear nav-icon"></i>
+        <span class="nav-text">Settings</span>
+      </a>
 
     </nav>
   </aside>
@@ -70,15 +73,52 @@
 
     <!-- Top Navbar -->
     <header class="top-navbar">
+
+      <!-- Navbar Left -->
       <div class="navbar-left">
+
         <button class="sidebar-toggle" (click)="toggleSidebar()">
-          ☰
+          <i class="fa-solid fa-bars"></i>
         </button>
+
+        <div class="page-title">
+          <h4>Employees</h4>
+          <span>WorkForceHub Enterprise HR Management</span>
+        </div>
+
       </div>
 
+      <!-- Navbar Right -->
       <div class="navbar-right">
-        <!-- Notifications and User Profile will come here -->
+
+        <!-- Global Search -->
+        <div class="navbar-search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" placeholder="Search...">
+        </div>
+
+        <!-- Notifications -->
+        <button class="navbar-icon-button">
+          <i class="fa-regular fa-bell"></i>
+          <span class="notification-dot"></span>
+        </button>
+
+        <!-- User Profile -->
+        <button class="profile-button">
+
+          <div class="profile-avatar">A</div>
+
+          <div class="profile-info">
+            <strong>admin@workforcehub.com</strong>
+            <span>System Administrator</span>
+          </div>
+
+          <i class="fa-solid fa-chevron-down"></i>
+
+        </button>
+
       </div>
+
     </header>
 
     <!-- Page Content -->
