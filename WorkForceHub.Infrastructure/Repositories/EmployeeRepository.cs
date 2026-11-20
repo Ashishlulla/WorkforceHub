@@ -38,18 +38,18 @@ namespace WorkForceHub.Infrastructure.Repositories
         public async Task<List<Employee>> GetAllEmployeesAsync()
         {
             
-            return await _db.Employees.ToListAsync();
+            return await _db.Employees.Include(e=>e.Department).ToListAsync();
         
         }
 
         public async Task<Employee?> GetEmployeeByCodeAsync(string code)
         {
-            return await _db.Employees.FirstOrDefaultAsync(e => e.EmployeeCode == code);
+            return await _db.Employees.Include(e=>e.Department).FirstOrDefaultAsync(e => e.EmployeeCode == code);
         }
 
         public async Task<Employee?> GetEmployeeByIdAsync(int id)
         {
-            return await _db.Employees.FindAsync(id);
+            return await _db.Employees.Include(e=>e.Department).FirstOrDefaultAsync(e=>e.EmployeeId == id);
         
         }
 

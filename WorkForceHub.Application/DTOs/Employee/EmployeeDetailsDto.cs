@@ -17,6 +17,7 @@ namespace WorkForceHub.Application.DTOs.Employee
         
         public string JobTitle { get; set; } = string.Empty;
         public int DepartmentId { get; set; }
+        public string DepartmentName { get; set; } = string.Empty;
         public int ShiftId { get; set; }
         public DateOnly DateOfJoining { get; set; }
 

@@ -38,11 +38,8 @@ namespace WorkForceHub.Application.Services
 
         public async  Task DeleteEmployeeByIdAsync(int id)
         {
-            var employee = await _employeeRepository.GetEmployeeByIdAsync(id);
-            if (employee == null)
-            {
-               throw new KeyNotFoundException($"Employee with ID {id} not found.");
-            }
+            var employee = await GetEmployeeOrThrowAsync(id);
+
             await _employeeRepository.DeleteEmployeeByIdAsync(id);
             
         }
@@ -65,46 +62,50 @@ namespace WorkForceHub.Application.Services
 
         public async Task<EmployeeDto> GetEmployeeByIdAsync(int id)
         {
-            var employee = await _employeeRepository.GetEmployeeByIdAsync(id);
-            if (employee == null)
-            {
-                throw new KeyNotFoundException($"Employee with ID {id} not found.");
-            }
+            var employee = await GetEmployeeOrThrowAsync(id);
+
             return _mapper.Map<EmployeeDto>(employee);
         }
 
         public async Task<EmployeeDetailsDto> GetEmployeeDetailsByIdAsync(int id)
         {
-            var employee = await _employeeRepository.GetEmployeeByIdAsync(id);
-            if (employee == null)
-            {
-                throw new KeyNotFoundException($"Employee with ID {id} not found.");
-            }
+            var employee = await GetEmployeeOrThrowAsync(id);
+
             return _mapper.Map<EmployeeDetailsDto>(employee);
         }
 
         public async Task<UpdateEmployeeDto> GetEmployeeForUpdateAsync(int id)
         {
-            var employee = await _employeeRepository.GetEmployeeByIdAsync(id);
-            if (employee == null)
-            {
-                throw new KeyNotFoundException($"Employee with ID {id} not found.");
-            }
+            var employee = await GetEmployeeOrThrowAsync(id);
+                
             return _mapper.Map<UpdateEmployeeDto>(employee);
         }
 
         public async Task<EmployeeDto> UpdateEmployeeAsync(UpdateEmployeeDto updateEmployeeDto)
         {
             await _updateEmployeeValidator.ValidateAndThrowAsync(updateEmployeeDto);
-            var employee = await _employeeRepository.GetEmployeeByIdAsync(updateEmployeeDto.EmployeeId);
-            if (employee == null)
-            {
-                throw new KeyNotFoundException($"Employee with ID {updateEmployeeDto.EmployeeId} not found.");
-            }
+
+            Employee employee = await GetEmployeeOrThrowAsync(updateEmployeeDto.EmployeeId);
+
             _mapper.Map(updateEmployeeDto, employee);
             var updatedEmployee = await _employeeRepository.UpdateEmployeeAsync(employee);
 
             return _mapper.Map<EmployeeDto>(updatedEmployee);
         }
+
+        #region HelperMethods
+        private async Task<Employee> GetEmployeeOrThrowAsync(int id) {
+
+            Employee? employee = await _employeeRepository.GetEmployeeByIdAsync(id);
+
+            if (employee == null)
+            {
+                throw new KeyNotFoundException($"No employee found with ID: {id}");
+            }
+
+            return employee;
+        }
+
+        #endregion
     }
 }

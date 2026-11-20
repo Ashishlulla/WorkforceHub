@@ -13,6 +13,6 @@ namespace WorkForceHub.Application.Interfaces.RepositoryInterfaces
         Task<Employee> UpdateEmployeeAsync(Employee employee);
         
         
-        Task DeleteEmployeeByIdAsync(int id);
+        Task DeleteEmployeeByIdAsync(Employee employee);
     }
 }
