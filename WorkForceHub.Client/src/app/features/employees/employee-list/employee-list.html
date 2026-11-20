@@ -1,0 +1,129 @@
+
+<div class="employee-page">
+
+  <!-- Page Heading -->
+  <div class="page-heading">
+    <div>
+      <h4>Employees</h4>
+      <p>Manage and view all employees</p>
+    </div>
+
+    <button class="btn-add-employee">
+      <i class="fa-solid fa-plus"></i>
+      Add Employee
+    </button>
+  </div>
+
+  <!-- Search and Filters -->
+ 
+<!-- Search and Filters -->
+<div class="filter-card">
+
+  <div class="filter-toolbar">
+
+    <!-- Search By -->
+    <select class="filter-control">
+      <option value="EmployeeName">Employee Name</option>
+      <option value="EmployeeCode">Employee Code</option>
+    </select>
+
+    <!-- Search Input -->
+    <input
+      type="text"
+      class="filter-control"
+      placeholder="Search employee..."
+    >
+
+    <!-- Department -->
+    <select class="filter-control">
+      <option value="">All Departments</option>
+      <option value="IT">IT</option>
+      <option value="HR">HR</option>
+      <option value="Finance">Finance</option>
+    </select>
+
+    <!-- Status -->
+    <select class="filter-control">
+      <option value="">All Status</option>
+      <option value="true">Active</option>
+      <option value="false">Inactive</option>
+    </select>
+
+    <!-- Search Button -->
+    <button class="btn-search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      Search
+    </button>
+
+    <!-- Reset Button -->
+    <button class="btn-reset">
+      Reset
+    </button>
+
+  </div>
+
+</div>
+
+
+  <!-- Employee Table -->
+  <div class="employee-table-card">
+
+    <div class="table-responsive">
+      <table class="table employee-table mb-0">
+
+        <thead>
+          <tr>
+            <th>Employee Code</th>
+            <th>Employee Name</th>
+            <th>Department</th>
+            <th>Job Title</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Info</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>EMP001</td>
+            <td>Rahul Sharma</td>
+            <td>IT</td>
+            <td>Software Developer</td>
+            <td>rahul@example.com</td>
+            <td><span class="status active">Active</span></td>
+            <td>
+              <button class="btn-details">Details</button>
+            </td>
+          </tr>
+
+          <tr>
+            <td>EMP002</td>
+            <td>Priya Patel</td>
+            <td>HR</td>
+            <td>HR Manager</td>
+            <td>priya@example.com</td>
+            <td><span class="status active">Active</span></td>
+            <td>
+              <button class="btn-details">Details</button>
+            </td>
+          </tr>
+
+          <tr>
+            <td>EMP003</td>
+            <td>Amit Verma</td>
+            <td>Finance</td>
+            <td>Accountant</td>
+            <td>amit@example.com</td>
+            <td><span class="status inactive">Inactive</span></td>
+            <td>
+              <button class="btn-details">Details</button>
+            </td>
+          </tr>
+        </tbody>
+
+      </table>
+    </div>
+
+  </div>
+
+</div>
