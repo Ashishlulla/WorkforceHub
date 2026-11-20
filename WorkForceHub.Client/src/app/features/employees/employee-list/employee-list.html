@@ -1,4 +1,3 @@
-
 <div class="employee-page">
 
   <!-- Page Heading -->
@@ -15,55 +14,45 @@
   </div>
 
   <!-- Search and Filters -->
- 
-<!-- Search and Filters -->
-<div class="filter-card">
+  <div class="filter-card">
+    <div class="filter-toolbar">
 
-  <div class="filter-toolbar">
+      <select class="filter-control">
+        <option value="EmployeeName">Employee Name</option>
+        <option value="EmployeeCode">Employee Code</option>
+      </select>
 
-    <!-- Search By -->
-    <select class="filter-control">
-      <option value="EmployeeName">Employee Name</option>
-      <option value="EmployeeCode">Employee Code</option>
-    </select>
+      <input
+        type="text"
+        class="filter-control"
+        placeholder="Search employee..."
+      >
 
-    <!-- Search Input -->
-    <input
-      type="text"
-      class="filter-control"
-      placeholder="Search employee..."
-    >
+      <select class="filter-control">
+        <option value="">All Departments</option>
+        <option value="IT">IT</option>
+        <option value="HR">HR</option>
+        <option value="Finance">Finance</option>
+        <option value="Sales">Sales</option>
+      </select>
 
-    <!-- Department -->
-    <select class="filter-control">
-      <option value="">All Departments</option>
-      <option value="IT">IT</option>
-      <option value="HR">HR</option>
-      <option value="Finance">Finance</option>
-    </select>
+      <select class="filter-control">
+        <option value="">All Status</option>
+        <option value="1">Active</option>
+        <option value="0">Inactive</option>
+      </select>
 
-    <!-- Status -->
-    <select class="filter-control">
-      <option value="">All Status</option>
-      <option value="true">Active</option>
-      <option value="false">Inactive</option>
-    </select>
+      <button class="btn-search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        Search
+      </button>
 
-    <!-- Search Button -->
-    <button class="btn-search">
-      <i class="fa-solid fa-magnifying-glass"></i>
-      Search
-    </button>
+      <button class="btn-reset">
+        Reset
+      </button>
 
-    <!-- Reset Button -->
-    <button class="btn-reset">
-      Reset
-    </button>
-
+    </div>
   </div>
-
-</div>
-
 
   <!-- Employee Table -->
   <div class="employee-table-card">
@@ -84,41 +73,42 @@
         </thead>
 
         <tbody>
-          <tr>
-            <td>EMP001</td>
-            <td>Rahul Sharma</td>
-            <td>IT</td>
-            <td>Software Developer</td>
-            <td>rahul@example.com</td>
-            <td><span class="status active">Active</span></td>
-            <td>
-              <button class="btn-details">Details</button>
-            </td>
-          </tr>
+          @for (employee of employees; track employee.employeeId) {
+            <tr>
+              <td>{{ employee.employeeCode }}</td>
 
-          <tr>
-            <td>EMP002</td>
-            <td>Priya Patel</td>
-            <td>HR</td>
-            <td>HR Manager</td>
-            <td>priya@example.com</td>
-            <td><span class="status active">Active</span></td>
-            <td>
-              <button class="btn-details">Details</button>
-            </td>
-          </tr>
+              <td>
+                {{ employee.firstName }} {{ employee.lastName }}
+              </td>
 
-          <tr>
-            <td>EMP003</td>
-            <td>Amit Verma</td>
-            <td>Finance</td>
-            <td>Accountant</td>
-            <td>amit@example.com</td>
-            <td><span class="status inactive">Inactive</span></td>
-            <td>
-              <button class="btn-details">Details</button>
-            </td>
-          </tr>
+              <td>{{ employee.departmentName }}</td>
+
+              <td>{{ employee.jobTitle }}</td>
+
+              <td>{{ employee.email }}</td>
+
+              <td>
+                @if (employee.status === 1) {
+                  <span class="status-badge active">Active</span>
+                } @else {
+                  <span class="status-badge inactive">Inactive</span>
+                }
+              </td>
+
+              <td>
+                <button class="btn-reset">
+                  <i class="fa-solid fa-eye"></i>
+                  View
+                </button>
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="7" class="text-center py-4">
+                No employees found.
+              </td>
+            </tr>
+          }
         </tbody>
 
       </table>
