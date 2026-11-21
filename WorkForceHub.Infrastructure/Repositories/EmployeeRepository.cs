@@ -24,15 +24,10 @@ namespace WorkForceHub.Infrastructure.Repositories
             return employee;
         }
 
-        public async Task DeleteEmployeeByIdAsync(int id)
+        public async Task DeleteEmployeeByIdAsync(Employee employee)
         {
-            var employee = await _db.Employees.FindAsync(id);
-            
-            _db.Employees.Remove(employee!);
-            await _db.SaveChangesAsync();
-
-            
-            
+            _db.Employees.Remove(employee);
+            await _db.SaveChangesAsync();          
         }
 
         public async Task<List<Employee>> GetAllEmployeesAsync()

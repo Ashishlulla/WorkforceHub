@@ -29,6 +29,9 @@ namespace WorkForceHub.Application.Services
         public async Task<EmployeeDto> CreateEmployeeAsync(CreateEmployeeDto createEmployeeDto)
         {
             await _createEmployeeValidator.ValidateAndThrowAsync(createEmployeeDto);
+
+            await ValidateEmployeeCodeIsUniqueAsync(null, createEmployeeDto.EmployeeCode);
+            
             var employee = _mapper.Map<Employee>(createEmployeeDto);
             employee.CreatedAt = DateTime.UtcNow;
             var createdEmployee = await _employeeRepository.AddEmployeeAsync(employee);
@@ -40,7 +43,7 @@ namespace WorkForceHub.Application.Services
         {
             var employee = await GetEmployeeOrThrowAsync(id);
 
-            await _employeeRepository.DeleteEmployeeByIdAsync(id);
+            await _employeeRepository.DeleteEmployeeByIdAsync(employee);
             
         }
 
@@ -81,16 +84,27 @@ namespace WorkForceHub.Application.Services
             return _mapper.Map<UpdateEmployeeDto>(employee);
         }
 
-        public async Task<EmployeeDto> UpdateEmployeeAsync(UpdateEmployeeDto updateEmployeeDto)
+        public async Task<EmployeeDto> UpdateEmployeeAsync(int id, UpdateEmployeeDto updateEmployeeDto)
         {
+
+            if (id == updateEmployeeDto.EmployeeId)
+            {
+
+                throw new ArgumentException($"Route Id do not match user passed Id.");
+            }
+
             await _updateEmployeeValidator.ValidateAndThrowAsync(updateEmployeeDto);
 
             Employee employee = await GetEmployeeOrThrowAsync(updateEmployeeDto.EmployeeId);
 
+            await ValidateEmployeeCodeIsUniqueAsync(updateEmployeeDto.EmployeeId, updateEmployeeDto.EmployeeCode);
+
             _mapper.Map(updateEmployeeDto, employee);
+
             var updatedEmployee = await _employeeRepository.UpdateEmployeeAsync(employee);
 
             return _mapper.Map<EmployeeDto>(updatedEmployee);
+
         }
 
         #region HelperMethods
@@ -104,6 +118,15 @@ namespace WorkForceHub.Application.Services
             }
 
             return employee;
+        }
+
+        private async Task ValidateEmployeeCodeIsUniqueAsync(int? employeeId, string employeeCode) {
+
+            Employee? employee = await _employeeRepository.GetEmployeeByCodeAsync(employeeCode);
+            if (employee != null && employee.EmployeeId != employeeId) {
+
+                throw new ValidationException($"Employee Code: {employeeCode} already exists");
+            }
         }
 
         #endregion

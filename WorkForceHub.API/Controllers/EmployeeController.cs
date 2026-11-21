@@ -75,12 +75,8 @@ namespace WorkForceHub.API.Controllers
         [HttpPut("{id:int}")]
         public async Task<IActionResult> UpdateEmployee(int id, [FromBody]UpdateEmployeeDto updateEmployeeDto) 
         {
-            if (id != updateEmployeeDto.EmployeeId)
-            {
-                return BadRequest("Employee ID in URL does not match request body.");
-            }
 
-            var updatedEmployee = await _employeeService.UpdateEmployeeAsync(updateEmployeeDto);
+            var updatedEmployee = await _employeeService.UpdateEmployeeAsync(id, updateEmployeeDto);
 
             return Ok(updatedEmployee);
         }
