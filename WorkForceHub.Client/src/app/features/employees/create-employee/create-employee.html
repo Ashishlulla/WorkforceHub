@@ -1,0 +1,301 @@
+<div class="create-employee-page">
+
+  <!-- Page Header -->
+  <div class="page-heading">
+    <div>
+      <h4>Create Employee</h4>
+      <p>Add a new employee to your organization</p>
+    </div>
+
+    <button type="button" class="btn-back" routerLink="/employees">
+      <i class="fa-solid fa-arrow-left"></i>
+      Back to Employees
+    </button>
+  </div>
+
+  <form [formGroup]="employeeForm" (ngSubmit)="OnSubmit()">
+
+    <!-- Personal Information -->
+    <div class="form-card">
+      <div class="form-card-header">
+        <div class="section-icon"><i class="fa-solid fa-user"></i></div>
+        <div>
+          <h5>Personal Information</h5>
+          <p>Basic employee personal details</p>
+        </div>
+      </div>
+
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label>First Name <span>*</span></label>
+          <input type="text" class="form-control"
+                 formControlName="firstName"
+                 placeholder="Enter first name">
+
+          @if (employeeForm.controls.firstName.touched && employeeForm.controls.firstName.hasError('required')) {
+            <small class="text-danger">First name is required.</small>
+          }
+          @if (employeeForm.controls.firstName.touched && employeeForm.controls.firstName.hasError('maxlength')) {
+            <small class="text-danger">Maximum 20 characters allowed.</small>
+          }
+        </div>
+
+        <div class="form-group">
+          <label>Last Name <span>*</span></label>
+          <input type="text" class="form-control"
+                 formControlName="lastName"
+                 placeholder="Enter last name">
+
+          @if (employeeForm.controls.lastName.touched && employeeForm.controls.lastName.hasError('required')) {
+            <small class="text-danger">Last name is required.</small>
+          }
+          @if (employeeForm.controls.lastName.touched && employeeForm.controls.lastName.hasError('maxlength')) {
+            <small class="text-danger">Maximum 20 characters allowed.</small>
+          }
+        </div>
+
+        <div class="form-group">
+          <label>Date of Birth <span>*</span></label>
+          <input type="date" class="form-control" formControlName="dateOfBirth">
+
+          @if (employeeForm.controls.dateOfBirth.touched && employeeForm.controls.dateOfBirth.hasError('required')) {
+            <small class="text-danger">Date of birth is required.</small>
+          }
+
+          @if (employeeForm.controls.dateOfBirth.touched &&
+                employeeForm.controls.dateOfBirth.hasError('futureDate')) {
+             <small class="text-danger">Date of birth must be earlier than today.</small>
+          }
+        </div>
+
+        <div class="form-group">
+          <label>Gender <span>*</span></label>
+          <select class="form-select" formControlName="gender">
+            <option [ngValue]="0">Select gender</option>
+            <option [ngValue]="1">Male</option>
+            <option [ngValue]="2">Female</option>
+            <option [ngValue]="3">Other</option>
+          </select>
+
+          @if (employeeForm.controls.gender.touched && employeeForm.controls.gender.invalid) {
+            <small class="text-danger">Please select a gender.</small>
+          }
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Contact Information -->
+    <div class="form-card">
+      <div class="form-card-header">
+        <div class="section-icon"><i class="fa-solid fa-address-book"></i></div>
+        <div>
+          <h5>Contact Information</h5>
+          <p>Employee contact and address details</p>
+        </div>
+      </div>
+
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label>Email Address <span>*</span></label>
+          <input type="email" class="form-control"
+                 formControlName="email"
+                 placeholder="Enter email address">
+
+          @if (employeeForm.controls.email.touched && employeeForm.controls.email.hasError('required')) {
+            <small class="text-danger">Email address is required.</small>
+          }
+          @if (employeeForm.controls.email.touched && employeeForm.controls.email.hasError('email')) {
+            <small class="text-danger">Enter a valid email address.</small>
+          }
+        </div>
+
+        <div class="form-group">
+          <label>Phone Number <span>*</span></label>
+          <input type="text" class="form-control"
+                 formControlName="phone"
+                 placeholder="Enter 10-digit phone number">
+
+          @if (employeeForm.controls.phone.touched && employeeForm.controls.phone.hasError('required')) {
+            <small class="text-danger">Phone number is required.</small>
+          }
+          @if (employeeForm.controls.phone.touched && employeeForm.controls.phone.hasError('pattern')) {
+            <small class="text-danger">Phone number must contain exactly 10 digits.</small>
+          }
+        </div>
+
+        <div class="form-group full-width">
+          <label>Address <span>*</span></label>
+          <textarea class="form-control"
+                    formControlName="address"
+                    rows="3"
+                    placeholder="Enter complete address"></textarea>
+
+          @if (employeeForm.controls.address.touched && employeeForm.controls.address.hasError('required')) {
+            <small class="text-danger">Address is required.</small>
+          }
+        </div>
+
+        <div class="form-group">
+          <label>City <span>*</span></label>
+          <input type="text" class="form-control"
+                 formControlName="city"
+                 placeholder="Enter city">
+
+          @if (employeeForm.controls.city.touched && employeeForm.controls.city.hasError('required')) {
+            <small class="text-danger">City is required.</small>
+          }
+        </div>
+
+        <div class="form-group">
+          <label>State <span>*</span></label>
+          <input type="text" class="form-control"
+                 formControlName="state"
+                 placeholder="Enter state">
+
+          @if (employeeForm.controls.state.touched && employeeForm.controls.state.hasError('required')) {
+            <small class="text-danger">State is required.</small>
+          }
+        </div>
+
+        <div class="form-group">
+          <label>Postal Code <span>*</span></label>
+          <input type="text" class="form-control"
+                 formControlName="postalCode"
+                 placeholder="Enter 6-digit postal code">
+
+          @if (employeeForm.controls.postalCode.touched && employeeForm.controls.postalCode.hasError('required')) {
+            <small class="text-danger">Postal code is required.</small>
+          }
+          @if (employeeForm.controls.postalCode.touched && employeeForm.controls.postalCode.hasError('pattern')) {
+            <small class="text-danger">Postal code must contain exactly 6 digits.</small>
+          }
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Employment Information -->
+    <div class="form-card">
+      <div class="form-card-header">
+        <div class="section-icon"><i class="fa-solid fa-briefcase"></i></div>
+        <div>
+          <h5>Employment Information</h5>
+          <p>Employee role and organizational details</p>
+        </div>
+      </div>
+
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label>Employee Code <span>*</span></label>
+          <input type="text" class="form-control"
+                 formControlName="employeeCode"
+                 placeholder="Enter employee code">
+
+          @if (employeeForm.controls.employeeCode.touched && employeeForm.controls.employeeCode.hasError('required')) {
+            <small class="text-danger">Employee code is required.</small>
+          }
+        </div>
+
+        <div class="form-group">
+          <label>Job Title <span>*</span></label>
+          <input type="text" class="form-control"
+                 formControlName="jobTitle"
+                 placeholder="Enter job title">
+
+          @if (employeeForm.controls.jobTitle.touched && employeeForm.controls.jobTitle.hasError('required')) {
+            <small class="text-danger">Job title is required.</small>
+          }
+        </div>
+
+        <div class="form-group">
+          <label>Department <span>*</span></label>
+          <select class="form-select" formControlName="departmentId">
+            <option value="0">Select department</option>
+            @for(department of departments; track department.departmentId){
+              <option [ngValue]="department.departmentId">{{department.departmentName}}</option>
+            }
+          </select>
+
+          @if (employeeForm.controls.departmentId.touched && employeeForm.controls.departmentId.invalid) {
+            <small class="text-danger">Please select a department.</small>
+          }
+        </div>
+
+        <div class="form-group">
+          <label>Shift <span>*</span></label>
+          <select class="form-select" formControlName="shiftId">
+            <option [ngValue]="0">Select shift</option>
+
+            @for (shift of shifts; track shift.shiftId) {
+              <option [ngValue]="shift.shiftId">
+                {{ ShiftType[shift.shiftType] }}
+                ({{ shift.startTime }} - {{ shift.endTime }})
+              </option>
+            }
+          </select>
+
+          @if (employeeForm.controls.shiftId.touched && employeeForm.controls.shiftId.invalid) {
+            <small class="text-danger">Please select a shift.</small>
+          }
+        </div>
+
+        <div class="form-group">
+          <label>Date of Joining <span>*</span></label>
+          <input type="date" class="form-control" formControlName="dateOfJoining">
+
+          @if (employeeForm.controls.dateOfJoining.touched && employeeForm.controls.dateOfJoining.hasError('required')) {
+            <small class="text-danger">Date of joining is required.</small>
+          }
+
+          @if (employeeForm.hasError('invalidJoiningDate') &&
+                employeeForm.controls.dateOfJoining.touched) {
+            <small class="text-danger">Date of joining cannot be earlier than date of birth.</small>
+          }
+        </div>
+
+        <div class="form-group">
+          <label>Employment Type <span>*</span></label>
+          <select class="form-select" formControlName="employmentType">
+            <option value="">Select employment type</option>
+            <option value="1">Full Time</option>
+            <option value="2">Part Time</option>
+            <option value="3">Contract</option>
+          </select>
+
+          @if (employeeForm.controls.employmentType.touched && employeeForm.controls.employmentType.invalid) {
+            <small class="text-danger">Please select an employment type.</small>
+          }
+        </div>
+
+        <div class="form-group">
+          <label>Status <span>*</span></label>
+          <select class="form-select" formControlName="status">
+            <option value="1">Active</option>
+            <option value="2">Inactive</option>
+            <option value="3">On Leave</option>
+            <option value="4">Resigned</option>
+            <option value="5">Terminated</option>
+          </select>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Form Actions -->
+    <div class="form-actions">
+      <button type="button" class="btn-cancel" routerLink="/employees">
+        Cancel
+      </button>
+
+      <button type="submit" class="btn-save">
+        <i class="fa-solid fa-floppy-disk"></i>
+        Save Employee
+      </button>
+    </div>
+
+  </form>
+</div>

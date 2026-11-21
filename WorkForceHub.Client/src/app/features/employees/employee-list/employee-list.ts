@@ -1,9 +1,14 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import {EmployeeService } from '../employee';
 import { Employee } from '../models/employee.model';
+import { RouterLink } from '@angular/router';
+import { DepartmentService } from '../../departments/department';
+import { ShiftService } from '../../shifts/shift';
+import { Department } from '../../departments/models/department.model';
+import { Shift } from '../../shifts/models/shift.model';
 
 @Component({
-  imports: [],
+  imports: [RouterLink],
   selector: 'app-employee-list',
   styleUrl: './employee-list.css',
   templateUrl: './employee-list.html',
@@ -11,9 +16,9 @@ import { Employee } from '../models/employee.model';
 export class EmployeeList implements OnInit {
 
 
-    employees: Employee[] = []
+    employees: Employee[] = [];
 
-    constructor(private employeeService: EmployeeService, private cdr: ChangeDetectorRef){}
+    constructor(private employeeService: EmployeeService, private departmentService: DepartmentService, private shiftService: ShiftService, private cdr: ChangeDetectorRef){}
 
     ngOnInit(): void {
       this.getEmployees();
