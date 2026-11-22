@@ -34,7 +34,7 @@ namespace WorkForceHub.Application.Services
         {
             await _createNotificationDtoValidator.ValidateAndThrowAsync(createNotificationDto);
 
-            Employee employee = await IsEmployeeExists(createNotificationDto.EmployeeId);
+            Employee employee = await EnsureEmployeeExists(createNotificationDto.EmployeeId);
 
            
             Notification notification = _mapper.Map<Notification>(createNotificationDto);
@@ -48,14 +48,14 @@ namespace WorkForceHub.Application.Services
 
         public async Task DeleteNotificationAsync(int id)
         {
-            Notification notification = await IsNotificationExists(id);
+            Notification notification = await EnsureNotificationExists(id);
 
             await _notificationRepository.DeleteNotificationAsync(notification);
         }
 
         public async Task<IEnumerable<NotificationDto>> GetNotificationsByEmployeeIdAsync(int employeeId)
         {
-            await IsEmployeeExists(employeeId);
+            await EnsureEmployeeExists(employeeId);
 
             IEnumerable<Notification> notifications = await _notificationRepository.GetNotificationsByEmployeeIdAsync(employeeId);
 
@@ -65,7 +65,7 @@ namespace WorkForceHub.Application.Services
 
         public async Task<NotificationDto> GetNotificationByIdAsync(int id)
         {
-            Notification notification = await IsNotificationExists(id);
+            Notification notification = await EnsureNotificationExists(id);
 
             return _mapper.Map<NotificationDto>(notification);
         }
@@ -86,7 +86,7 @@ namespace WorkForceHub.Application.Services
 
         public async Task<IEnumerable<NotificationDto>> GetUnreadNotificationsByEmployeeIdAsync(int employeeId)
         {
-            await IsEmployeeExists(employeeId);
+            await EnsureEmployeeExists(employeeId);
 
             IEnumerable<Notification> notifications = await _notificationRepository.GetUnReadNotificationByEmployeeIdAsync(employeeId);
 
@@ -95,7 +95,7 @@ namespace WorkForceHub.Application.Services
 
         public async Task MarkAllAsReadAsync(int employeeId)
         {
-            await IsEmployeeExists(employeeId);
+            await EnsureEmployeeExists(employeeId);
 
             await _notificationRepository.MarkAllAsReadAsync(employeeId);
         }
@@ -107,7 +107,7 @@ namespace WorkForceHub.Application.Services
 
         public async Task MarkNotificationAsReadAsync(int id)
         {
-            Notification notification = await IsNotificationExists(id);
+            Notification notification = await EnsureNotificationExists(id);
 
             if (!notification.IsRead)
             {
@@ -129,7 +129,7 @@ namespace WorkForceHub.Application.Services
 
 
         #region Helper Methods
-        private async Task<Employee> IsEmployeeExists(int employeeId) {
+        private async Task<Employee> EnsureEmployeeExists(int employeeId) {
 
             Employee? employee = await _employeeRepository.GetEmployeeByIdAsync(employeeId);
 
@@ -141,7 +141,7 @@ namespace WorkForceHub.Application.Services
             return employee;
         }
 
-        private async Task<Notification> IsNotificationExists(int id) {
+        private async Task<Notification> EnsureNotificationExists(int id) {
 
             Notification? notification = await _notificationRepository.GetNotificationByIdAsync(id);
 

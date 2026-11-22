@@ -44,11 +44,7 @@ namespace WorkForceHub.Application.Services
 
         public async Task DeleteShiftAsync(int id)
         {
-            var shift = await _shiftRepository.GetShiftDetailsByIdAsync(id);
-            if (shift == null) {
-
-                throw new KeyNotFoundException($"No Shift found with Id: {id}");
-            }
+            var shift = await EnsureShiftDetailsAsync(id);
 
             if (shift.Employees.Any()) {
 
@@ -60,24 +56,14 @@ namespace WorkForceHub.Application.Services
 
         public async Task<ShiftDto> GetShiftByIdAsync(int id)
         {
-            var shift = await _shiftRepository.GetShiftByIdAsync(id);
-            
-            if (shift == null)
-            {
-                throw new KeyNotFoundException($"No Shift found with Id: {id}");
-            }
+            var shift = await EnsureShiftExistsAsync(id);
 
             return _mapper.Map<ShiftDto>(shift);
         }
 
         public async Task<ShiftDetailsDto> GetShiftDetailsByIdAsync(int id)
         {
-            var shiftDetails = await _shiftRepository.GetShiftDetailsByIdAsync(id);
-            if (shiftDetails == null)
-            {
-
-                throw new KeyNotFoundException($"No Shift found with Id: {id}");
-            }
+            var shiftDetails = await EnsureShiftDetailsAsync(id);
 
             return _mapper.Map<ShiftDetailsDto>(shiftDetails);
         }
@@ -98,21 +84,40 @@ namespace WorkForceHub.Application.Services
                 throw new ArgumentException("Route ID and user-provided Id do not match.");
             }
 
+            Shift? shift = await EnsureShiftExistsAsync(updateShiftDto.ShiftId);
+
+     
+            var shiftToBeUpdated = _mapper.Map(updateShiftDto, shift);
+            shiftToBeUpdated.UpdatedAt = DateTime.UtcNow;
+
+            var updatedShift = await _shiftRepository.UpdateShiftAsync(shiftToBeUpdated);
+
+            return _mapper.Map<ShiftDto>(updatedShift);
+        }
+
+        #region Helper Methods
+        private async Task<Shift> EnsureShiftExistsAsync(int id) {
+
             Shift? shift = await _shiftRepository.GetShiftByIdAsync(id);
 
             if (shift == null)
             {
-                throw new KeyNotFoundException($"No shift found with id : {updateShiftDto.ShiftId} ");
+                throw new KeyNotFoundException($"No shift found with ID: {id}");
             }
 
-            shift.UpdatedAt = DateTime.UtcNow;
-
-            var shiftTobeUpdated = _mapper.Map(updateShiftDto, shift);
-
-            var updatedShift = await _shiftRepository.UpdateShiftAsync(shiftTobeUpdated);
-
-            return _mapper.Map<ShiftDto>(updatedShift);
-
+            return shift;
         }
+
+        private async Task<Shift> EnsureShiftDetailsAsync(int id) {
+
+            Shift? shift = await _shiftRepository.GetShiftDetailsByIdAsync(id);
+            if (shift == null)
+            {
+                throw new KeyNotFoundException($"No shift found with ID: {id}");
+            }
+
+            return shift; 
+        }
+        #endregion
     }
 }
