@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import {EmployeeService } from '../employee';
 import { Employee } from '../models/employee.model';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { DepartmentService } from '../../departments/department';
 import { ShiftService } from '../../shifts/shift';
 import { Department } from '../../departments/models/department.model';
@@ -18,7 +18,7 @@ export class EmployeeList implements OnInit {
 
     employees: Employee[] = [];
 
-    constructor(private employeeService: EmployeeService, private departmentService: DepartmentService, private shiftService: ShiftService, private cdr: ChangeDetectorRef){}
+    constructor(private employeeService: EmployeeService, private departmentService: DepartmentService, private shiftService: ShiftService, private cdr: ChangeDetectorRef, private router: Router){}
 
     ngOnInit(): void {
       this.getEmployees();
@@ -35,5 +35,9 @@ export class EmployeeList implements OnInit {
       error:(error)=>{
         console.log("Error Fetching employees: ", error);
       }})
+    }
+
+    getEmployeesDetails(id:number){
+      this.router.navigate([`/employees/${id}`]);
     }
 }

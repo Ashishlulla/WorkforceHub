@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, inject, OnInit, } from '@angular/core';
 import { AbstractControl, FormBuilder, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators} from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { DepartmentService } from '../../departments/department';
 import { ShiftService } from '../../shifts/shift';
 import { Department } from '../../departments/models/department.model';
@@ -39,7 +39,7 @@ export class CreateEmployee implements OnInit{
    departments: Department[] = [];
    shifts: Shift[] = [];
 
-   constructor(private employeeService: EmployeeService , private departmentSerice:DepartmentService, private shiftService: ShiftService, private cdr: ChangeDetectorRef){}
+   constructor(private employeeService: EmployeeService , private departmentSerice:DepartmentService, private shiftService: ShiftService, private cdr: ChangeDetectorRef, private route: Router){}
 
     employeeForm = this.fb.group({
       employeeCode: ['', Validators.required],
@@ -141,6 +141,7 @@ export class CreateEmployee implements OnInit{
      this.employeeService.addEmployee(employeeData).subscribe({
           next: (addedEmployee) => {
             console.log('Employee added successfully:', addedEmployee);
+            this.route.navigate(['/employees']);
           },
           error: (error) => {
             console.error('Error adding employee:', error);

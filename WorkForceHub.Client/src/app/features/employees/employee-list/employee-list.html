@@ -74,7 +74,7 @@
 
         <tbody>
           @for (employee of employees; track employee.employeeId) {
-            <tr>
+            <tr (dblclick)="getEmployeesDetails(employee.employeeId)" class="employee-row">
               <td>{{ employee.employeeCode }}</td>
 
               <td>
@@ -96,7 +96,11 @@
               </td>
 
               <td>
-                <button class="btn-reset">
+                <button
+                  type="button"
+                  class="btn-reset"
+                  [routerLink]="['/employees', employee.employeeId]">
+
                   <i class="fa-solid fa-eye"></i>
                   View
                 </button>
