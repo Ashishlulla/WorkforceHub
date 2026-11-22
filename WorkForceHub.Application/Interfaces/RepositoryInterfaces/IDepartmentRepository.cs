@@ -12,6 +12,6 @@ namespace WorkForceHub.Application.Interfaces.RepositoryInterfaces
         
         Task<Department> UpdateDepartmentAsync(Department department);
         
-        Task DeleteDepartmentAsync(int id);
+        Task DeleteDepartmentAsync(Department department);
     }
 }

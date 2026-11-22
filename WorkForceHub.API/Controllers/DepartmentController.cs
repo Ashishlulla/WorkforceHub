@@ -37,7 +37,7 @@ namespace WorkForceHub.API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateDepartmentAsync([FromBody]CreateDepartmentDto createDepartmentDto) {
 
-            var department = await _departmentService.AddDepartmentAsync(createDepartmentDto);
+            var department = await _departmentService.CreateDepartmentAsync(createDepartmentDto);
 
             return StatusCode(201, department);
         }

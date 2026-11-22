@@ -1,5 +1,4 @@
-﻿
-using AutoMapper;
+﻿using AutoMapper;
 using FluentValidation;
 using WorkForceHub.Application.DTOs.Department;
 using WorkForceHub.Application.Interfaces.RepositoryInterfaces;
@@ -26,7 +25,7 @@ namespace WorkForceHub.Application.Services
             _updateDepartmentDtoValidator = updateDepartmentDtoValidator;
         }
 
-        public async Task<DepartmentDto> AddDepartmentAsync(CreateDepartmentDto createDepartmentDto)
+        public async Task<DepartmentDto> CreateDepartmentAsync(CreateDepartmentDto createDepartmentDto)
         {
             await _createDepartmentDtoValidator.ValidateAndThrowAsync(createDepartmentDto);
 
@@ -43,25 +42,15 @@ namespace WorkForceHub.Application.Services
         public async Task DeleteDepartmentByIdAsync(int id)
         {
 
-            var department = await _departmentRepository.GetDepartmentByIdAsync(id);
+             Department department = await EnsureDepartmentExistsAsync(id);
 
-            if (department  == null)
-            {
-                throw new KeyNotFoundException($"No Department exists with Id: {id}");
-            }
-
-            await _departmentRepository.DeleteDepartmentAsync(id);
+            await _departmentRepository.DeleteDepartmentAsync(department);
 
         }
 
-        public async Task<DepartmentDto?> GetDepartmentByIdAsync(int id)
+        public async Task<DepartmentDto> GetDepartmentByIdAsync(int id)
         {
-            var department = await _departmentRepository.GetDepartmentByIdAsync(id);
-
-            if (department == null)
-            {
-                throw new KeyNotFoundException($"No Department exists with Id: {id}");
-            }
+            var department = await EnsureDepartmentExistsAsync(id);
 
             return _mapper.Map<DepartmentDto>(department);
         }
@@ -75,25 +64,37 @@ namespace WorkForceHub.Application.Services
 
         public async Task<DepartmentDto> UpdateDepartmentAsync(int id , UpdateDepartmentDto updateDepartmentDto)
         {
-            await _updateDepartmentDtoValidator.ValidateAndThrowAsync(updateDepartmentDto);
-
-            var isDepartmentExists = await _departmentRepository.GetDepartmentByIdAsync(id);
-
-            if (isDepartmentExists == null)
+            if (id != updateDepartmentDto.DepartmentId)
             {
-                throw new KeyNotFoundException($"No Department exists with Id: {id}.");
+                throw new ArgumentException("Route ID and Department ID do not match.");
             }
 
-            
+            await _updateDepartmentDtoValidator.ValidateAndThrowAsync(updateDepartmentDto);
 
-            var department = _mapper.Map(updateDepartmentDto, isDepartmentExists);
-            isDepartmentExists.UpdatedAt = DateTime.UtcNow;
+            var retrievedDepartment = await EnsureDepartmentExistsAsync(updateDepartmentDto.DepartmentId);
+
+            var department = _mapper.Map(updateDepartmentDto, retrievedDepartment);
+            
+            department.UpdatedAt = DateTime.UtcNow;
 
             var updatedDepartment = await _departmentRepository.UpdateDepartmentAsync(department);
             
-
             return _mapper.Map<DepartmentDto>(updatedDepartment);
-
         }
+
+        #region HelperMethod
+        private async Task<Department> EnsureDepartmentExistsAsync(int id) {
+
+            Department? department = await _departmentRepository.GetDepartmentByIdAsync(id);
+
+            if (department == null)
+            {
+                throw new KeyNotFoundException($"No department exists with ID: {id}");
+            }
+
+            return department;
+        }
+
+        #endregion
     }
 }

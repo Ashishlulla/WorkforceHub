@@ -24,10 +24,8 @@ namespace WorkForceHub.Infrastructure.Repositories
             return department;
         }
 
-        public async Task DeleteDepartmentAsync(int id)
+        public async Task DeleteDepartmentAsync(Department department)
         {
-            var department = await _db.Departments.FindAsync(id);
-
             _db.Departments.Remove(department);
             await _db.SaveChangesAsync();
         }
