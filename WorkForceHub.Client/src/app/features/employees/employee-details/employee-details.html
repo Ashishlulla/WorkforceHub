@@ -38,10 +38,13 @@
           {{ employee.status === 1 ? 'Active' : 'Other Status' }}
         </span>
 
-        <button class="btn-edit" type="button">
-          <i class="fa-solid fa-pen"></i>
-          Edit Employee
-        </button>
+       <button
+  class="btn-edit"
+  type="button"
+  (click)="getEmployeeForUpdate(employee.employeeId)">
+  <i class="fa-solid fa-pen"></i>
+  Edit
+</button>
       </div>
     </div>
 
@@ -155,7 +158,7 @@
 
         <div class="detail-item">
           <label>Employment Status</label>
-          <span>{{ employee.status }}</span>
+          <span>{{getEmploymentStatus(employee.status)}}</span>
         </div>
       </div>
     </div>

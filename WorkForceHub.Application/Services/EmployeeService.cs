@@ -87,7 +87,7 @@ namespace WorkForceHub.Application.Services
         public async Task<EmployeeDto> UpdateEmployeeAsync(int id, UpdateEmployeeDto updateEmployeeDto)
         {
 
-            if (id == updateEmployeeDto.EmployeeId)
+            if (id != updateEmployeeDto.EmployeeId)
             {
 
                 throw new ArgumentException($"Route Id do not match user passed Id.");

@@ -3,7 +3,7 @@
   <!-- Page Header -->
   <div class="page-heading">
     <div>
-      <h4>Create Employee</h4>
+      <h4>{{isEditMode ? "Edit Employee":"Create Employee"}}</h4>
       <p>Add a new employee to your organization</p>
     </div>
 
@@ -285,17 +285,29 @@
       </div>
     </div>
 
+    
     <!-- Form Actions -->
-    <div class="form-actions">
+  <div class="form-actions">
+
+    @if (isEditMode) {
+  <button type="button" class="btn-delete" (click)="deleteEmployee()">
+    <i class="fa-solid fa-trash"></i>
+    Delete Employee
+  </button>
+}
+
+    <div class="form-actions-right">
       <button type="button" class="btn-cancel" routerLink="/employees">
         Cancel
       </button>
 
       <button type="submit" class="btn-save">
         <i class="fa-solid fa-floppy-disk"></i>
-        Save Employee
+        {{isEditMode ? 'Update Employee' : 'Save Employee'}}
       </button>
     </div>
+
+  </div>
 
   </form>
 </div>

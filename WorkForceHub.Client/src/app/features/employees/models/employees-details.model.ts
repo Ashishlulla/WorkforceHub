@@ -1,5 +1,6 @@
 export interface EmployeesDetailsModel{
 
+    employeeId: number;
     employeeCode: string;
     firstName: string;
     lastName: string;
