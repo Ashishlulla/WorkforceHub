@@ -1,5 +1,6 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet,  RouterLink, RouterLinkActive } from '@angular/router';
+import { PageTitleService } from '../../core/services/PageTitleService';
 
 
 @Component({
@@ -11,7 +12,8 @@ import { RouterOutlet,  RouterLink, RouterLinkActive } from '@angular/router';
 export class MainLayout {
 
   isSidebarCollapsed = signal(false);
-
+  
+  pageService = inject(PageTitleService);
   toggleSidebar(){
       this.isSidebarCollapsed.update(value => !value);
   }

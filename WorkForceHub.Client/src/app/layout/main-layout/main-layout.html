@@ -15,7 +15,7 @@
     <!-- Sidebar Navigation -->
     <nav class="sidebar-nav">
 
-      <a href="#" class="nav-link">
+      <a  class="nav-link" routerLink="/departments" routerLinkActive="active">
         <i class="fa-solid fa-gauge-high nav-icon"></i>
         <span class="nav-text">Dashboard</span>
       </a>
@@ -25,7 +25,7 @@
         <span class="nav-text">Employees</span>
       </a>
 
-      <a href="#" class="nav-link">
+      <a class="nav-link" routerLink="/departments" routerLinkActive="active">
         <i class="fa-solid fa-building nav-icon"></i>
         <span class="nav-text">Departments</span>
       </a>
@@ -82,8 +82,8 @@
         </button>
 
         <div class="page-title">
-          <h4>Employees</h4>
-          <span>WorkForceHub Enterprise HR Management</span>
+          <h4>{{ pageService.pageTitle() }}</h4>
+          <span>{{ pageService.subTitle() }}</span>
         </div>
 
       </div>
