@@ -1,0 +1,96 @@
+<div class="create-department-page">
+
+  <!-- Page Header -->
+  <div class="page-heading">
+    <div>
+      <h4>Create Department</h4>
+      <p>Add a new department to your organization</p>
+    </div>
+
+    <button type="button" class="btn-back" routerLink="/departments">
+      <i class="fa-solid fa-arrow-left"></i>
+      Back to Departments
+    </button>
+  </div>
+
+  <!-- Department Form -->
+  <div class="department-form-card">
+
+    <div class="form-card-header">
+      <div class="form-icon">
+        <i class="fa-solid fa-building"></i>
+      </div>
+      <div>
+        <h5>Department Information</h5>
+        <p>Enter the details of the new department</p>
+      </div>
+    </div>
+
+    <form [formGroup]="departmentForm" (ngSubmit)="OnSubmit()">
+
+      <div class="form-body">
+
+        <!-- Department Name -->
+        <div class="form-group">
+          <label for="departmentName">
+            Department Name <span>*</span>
+          </label>
+
+          <input
+            type="text"
+            id="departmentName"
+            formControlName="departmentName"
+            placeholder="Enter department name"
+            [class.is-invalid]="departmentForm.controls.departmentName.touched && departmentForm.controls.departmentName.invalid"
+          />
+
+          @if (departmentForm.controls.departmentName.touched && departmentForm.controls.departmentName.hasError('required')) {
+            <small class="error-message">Department name is required.</small>
+          }
+
+          @if (departmentForm.controls.departmentName.touched && departmentForm.controls.departmentName.hasError('minlength')) {
+            <small class="error-message">Department name must contain at least 2 characters.</small>
+          }
+        </div>
+
+        <!-- Description -->
+        <div class="form-group">
+          <label for="description">
+            Description <span>*</span>
+          </label>
+
+          <textarea
+            id="description"
+            rows="5"
+            formControlName="description"
+            placeholder="Enter department description"
+            [class.is-invalid]="departmentForm.controls.description.touched && departmentForm.controls.description.invalid"
+          ></textarea>
+
+          @if (departmentForm.controls.description.touched && departmentForm.controls.description.hasError('required')) {
+            <small class="error-message">Department description is required.</small>
+          }
+        </div>
+
+      </div>
+
+      <!-- Form Actions -->
+      <div class="form-actions">
+        <button
+          type="button"
+          class="btn-cancel"
+          routerLink="/departments">
+          Cancel
+        </button>
+
+        <button type="submit" class="btn-save">
+          <i class="fa-solid fa-floppy-disk"></i>
+          Save Department
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+
+</div>

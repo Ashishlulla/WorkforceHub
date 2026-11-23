@@ -1,0 +1,86 @@
+ 
+<div class="departments-page">
+
+  <!-- Page Header -->
+  <div class="page-heading">
+    <div>
+      <h4>Departments</h4>
+      <p>Manage your organization's departments</p>
+    </div>
+
+    <button type="button" class="btn-add" routerLink="/departments/create-department">
+      <i class="fa-solid fa-plus"></i>
+      Add Department
+    </button>
+  </div>
+
+  <!-- Search Section -->
+  <div class="department-toolbar">
+    <div class="search-box">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input
+        type="text"
+        placeholder="Search departments..."
+        [(ngModel)]="searchText"
+      />
+    </div>
+
+    <span class="department-count">
+      {{ FilteredDepartment.length }} Departments
+    </span>
+  </div>
+
+  <!-- Department Cards -->
+  <div class="department-grid">
+
+    @for (department of FilteredDepartment; track department.departmentId) {
+      <div class="department-card">
+
+        <div class="card-top">
+          <div class="department-icon">
+            <i class="fa-solid fa-building"></i>
+          </div>
+
+          <span
+            class="status-badge"
+            [class.active]="department.isActive"
+            [class.inactive]="!department.isActive">
+            {{ department.isActive ? 'Active' : 'Inactive' }}
+          </span>
+        </div>
+
+        <div class="department-info">
+          <h5>{{ department.departmentName }}</h5>
+          <p>{{ department.description || 'No description available.' }}</p>
+        </div>
+
+        <div class="card-footer">
+          <span class="department-label">Department</span>
+
+          <div class="card-actions">
+            <button type="button" class="btn-action btn-edit" title="Edit Department">
+              <i class="fa-solid fa-pen"></i>
+            </button>
+
+            <button type="button" class="btn-action btn-delete" title="Delete Department">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+        </div>
+
+      </div>
+    }
+
+    @if (departments.length === 0) {
+      <div class="empty-state">
+        <div class="empty-icon">
+          <i class="fa-solid fa-building"></i>
+        </div>
+        <h5>No Departments Found</h5>
+        <p>There are currently no departments to display.</p>
+      </div>
+    }
+
+  </div>
+
+</div>
