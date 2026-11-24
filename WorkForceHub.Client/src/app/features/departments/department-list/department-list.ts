@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { DepartmentService } from '../department';
 import { Department } from '../models/department.model';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { PageTitleService } from '../../../core/services/PageTitleService';
 
 @Component({
@@ -18,7 +18,7 @@ export class DepartmentList implements OnInit {
   pageTitleService = inject(PageTitleService);
 
 
-  constructor(private departmentService: DepartmentService, private cdr: ChangeDetectorRef){}
+  constructor(private departmentService: DepartmentService, private cdr: ChangeDetectorRef, private router: Router){}
 
   ngOnInit(): void {
     this.getDepartments();
@@ -48,5 +48,9 @@ export class DepartmentList implements OnInit {
       }, 
       error:(error)=>{console.error("error fetching Departments: ", error)}});
   
+    }
+
+    viewDepartmentDetails(id: number){
+     this.router.navigate(['/departments', id])  
     }
 }

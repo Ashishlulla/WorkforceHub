@@ -1,0 +1,176 @@
+
+<div class="department-details-page">
+
+  @if (department; as dept) {
+
+    <!-- Page Header -->
+    <div class="details-header">
+      <div>
+        <h2>{{ dept.departmentName }}</h2>
+        <p>Department overview and associated employees</p>
+      </div>
+
+      <a routerLink="/departments" class="btn-back">
+        <i class="fa-solid fa-arrow-left"></i>
+        Back to Departments
+      </a>
+    </div>
+
+    <!-- Department Information -->
+    <div class="department-info-card">
+
+      <div class="department-icon">
+        <i class="fa-solid fa-building"></i>
+      </div>
+
+      <div class="department-info-content">
+        <div class="department-title-row">
+          <h3>{{ dept.departmentName }}</h3>
+
+          <span class="status-badge"
+                [class.active]="dept.isActive"
+                [class.inactive]="!dept.isActive">
+            {{ dept.isActive ? 'Active' : 'Inactive' }}
+          </span>
+        </div>
+
+        <p class="department-description">
+          {{ dept.description }}
+        </p>
+
+        <div class="department-meta">
+          <div>
+            <i class="fa-solid fa-calendar-plus"></i>
+            Created:
+            {{ dept.createdAt | date:'dd MMM yyyy' }}
+          </div>
+
+          <div>
+            <i class="fa-solid fa-calendar-check"></i>
+            Last Updated:
+            {{ dept.updatedAt ? (dept.updatedAt | date:'dd MMM yyyy') : 'Not updated' }}
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Employee Summary -->
+    <div class="employee-summary">
+
+      <div class="summary-card">
+        <div class="summary-icon total-icon">
+          <i class="fa-solid fa-users"></i>
+        </div>
+        <div>
+          <span>Total Employees</span>
+          <h3>{{ dept.employees.length }}</h3>
+        </div>
+      </div>
+
+      <div class="summary-card">
+        <div class="summary-icon active-icon">
+          <i class="fa-solid fa-user-check"></i>
+        </div>
+        <div>
+          <span>Active Employees</span>
+          <h3>
+            {{ dept.employees.filter(e => e.status === 1).length }}
+          </h3>
+        </div>
+      </div>
+
+      <div class="summary-card">
+        <div class="summary-icon inactive-icon">
+          <i class="fa-solid fa-user-xmark"></i>
+        </div>
+        <div>
+          <span>Inactive Employees</span>
+          <h3>
+            {{ dept.employees.filter(e => e.status !== 1).length }}
+          </h3>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Employees Table -->
+    <div class="employees-card">
+
+      <div class="employees-header">
+        <div>
+          <h3>Department Employees</h3>
+          <p>Employees currently affiliated with this department</p>
+        </div>
+
+        <span class="employee-count">
+          {{ dept.employees.length }} Employees
+        </span>
+      </div>
+
+      @if (dept.employees.length > 0) {
+
+        <div class="table-responsive">
+          <table class="employees-table">
+            <thead>
+              <tr>
+                <th>Employee Code</th>
+                <th>Employee Name</th>
+                <th>Job Title</th>
+                <th>Email Address</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              @for (employee of dept.employees; track employee.employeeId) {
+                <tr (dblclick)="viewEmployeeDetails(employee.employeeId)">
+                  <td class="employee-code">
+                    {{ employee.employeeCode }}
+                  </td>
+
+                  <td class="employee-name">
+                    {{ employee.firstName }} {{ employee.lastName }}
+                  </td>
+
+                  <td>{{ employee.jobTitle }}</td>
+
+                  <td class="employee-email">
+                    {{ employee.email }}
+                  </td>
+
+                  <td>
+                    <span class="employee-status"
+                          [class.active]="employee.status === 1"
+                          [class.inactive]="employee.status !== 1">
+                      {{ employee.status === 1 ? 'Active' : 'Inactive' }}
+                    </span>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+
+      } @else {
+
+        <div class="empty-state">
+          <i class="fa-solid fa-users"></i>
+          <h4>No Employees Found</h4>
+          <p>There are currently no employees assigned to this department.</p>
+        </div>
+
+      }
+
+    </div>
+
+  } @else {
+
+    <div class="loading-state">
+      <i class="fa-solid fa-spinner fa-spin"></i>
+      <p>Loading department details...</p>
+    </div>
+
+  }
+
+</div>

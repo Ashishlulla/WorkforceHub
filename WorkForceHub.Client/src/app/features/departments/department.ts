@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Department } from './models/department.model';
 import { CreateDepartmentModel } from './models/create-department.model';
+import { DepartmentDetailsModel } from './models/department-details.model';
 
 @Injectable({
   providedIn: 'root',
@@ -19,5 +20,9 @@ export class DepartmentService {
   createDepartment(department: CreateDepartmentModel): Observable<Department>{
 
     return this.http.post<Department>(this.apiUrl, department);
+  }
+
+  getDepartmentDetails(id: number):Observable<DepartmentDetailsModel>{
+    return this.http.get<DepartmentDetailsModel>(`${this.apiUrl}/details/${id}`);
   }
 }

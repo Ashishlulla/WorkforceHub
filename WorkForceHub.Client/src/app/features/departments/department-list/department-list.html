@@ -36,7 +36,7 @@
     @for (department of FilteredDepartment; track department.departmentId) {
       <div class="department-card">
 
-        <div class="card-top">
+        <div class="card-top" (dblclick)="viewDepartmentDetails(department.departmentId)">
           <div class="department-icon">
             <i class="fa-solid fa-building"></i>
           </div>
@@ -49,24 +49,38 @@
           </span>
         </div>
 
-        <div class="department-info">
+        <div class="department-info" (dblclick)="viewDepartmentDetails(department.departmentId)">
           <h5>{{ department.departmentName }}</h5>
           <p>{{ department.description || 'No description available.' }}</p>
         </div>
 
         <div class="card-footer">
-          <span class="department-label">Department</span>
+            <div class="card-actions">
 
-          <div class="card-actions">
-            <button type="button" class="btn-action btn-edit" title="Edit Department">
-              <i class="fa-solid fa-pen"></i>
-            </button>
+                <button
+                  type="button"
+                  class="btn-action btn-view"
+                  title="View Department Details"
+                  (click)="viewDepartmentDetails(department.departmentId)">
+                  <i class="fa-solid fa-eye"></i>
+                </button>
 
-            <button type="button" class="btn-action btn-delete" title="Delete Department">
-              <i class="fa-solid fa-trash"></i>
-            </button>
+                <button
+                  type="button"
+                  class="btn-action btn-edit"
+                  title="Edit Department">
+                  <i class="fa-solid fa-pen"></i>
+                </button>
+
+                <button
+                  type="button"
+                  class="btn-action btn-delete"
+                  title="Delete Department">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+
+              </div>
           </div>
-        </div>
 
       </div>
     }

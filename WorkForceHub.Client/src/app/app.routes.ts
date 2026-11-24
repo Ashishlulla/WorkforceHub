@@ -4,6 +4,7 @@ import { CreateEmployee } from './features/employees/create-employee/create-empl
 import { EmployeeDetails } from './features/employees/employee-details/employee-details';
 import { DepartmentList } from './features/departments/department-list/department-list';
 import { CreateDepartment } from './features/departments/create-department/create-department';
+import { DepartmentDetails } from './features/departments/department-details/department-details';
 
 export const routes: Routes = [
     //Employees routees configurations
@@ -15,5 +16,6 @@ export const routes: Routes = [
   
    //departments routes configurations
    {path:'departments', component: DepartmentList},
-   {path:'departments/create-department', component: CreateDepartment}
+   {path:'departments/create-department', component: CreateDepartment},
+   {path:'departments/:id', component: DepartmentDetails}
 ];
