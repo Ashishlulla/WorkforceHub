@@ -42,7 +42,7 @@ namespace WorkForceHub.Application.Services
         public async Task DeleteDepartmentByIdAsync(int id)
         {
 
-             Department department = await EnsureDepartmentExistsAsync(id);
+             Department department = await GetDepartmentOrThrowAsync(id);
 
             await _departmentRepository.DeleteDepartmentAsync(department);
 
@@ -50,9 +50,21 @@ namespace WorkForceHub.Application.Services
 
         public async Task<DepartmentDto> GetDepartmentByIdAsync(int id)
         {
-            var department = await EnsureDepartmentExistsAsync(id);
+            var department = await GetDepartmentOrThrowAsync(id);
 
             return _mapper.Map<DepartmentDto>(department);
+        }
+
+        public async Task<DepartmentDetailsDto> GetDepartmentDetailsAsync(int id)
+        {
+            Department? department = await _departmentRepository.GetDepartmentDetailsAsync(id);
+
+            if (department == null)
+            {
+                throw new KeyNotFoundException($"No department found with ID: {id}");
+            }
+
+            return _mapper.Map<DepartmentDetailsDto>(department);
         }
 
         public async Task<IEnumerable<DepartmentDto>> GetDepartmentsAsync()
@@ -71,7 +83,7 @@ namespace WorkForceHub.Application.Services
 
             await _updateDepartmentDtoValidator.ValidateAndThrowAsync(updateDepartmentDto);
 
-            var retrievedDepartment = await EnsureDepartmentExistsAsync(updateDepartmentDto.DepartmentId);
+            var retrievedDepartment = await GetDepartmentOrThrowAsync(updateDepartmentDto.DepartmentId);
 
             var department = _mapper.Map(updateDepartmentDto, retrievedDepartment);
             
@@ -83,7 +95,7 @@ namespace WorkForceHub.Application.Services
         }
 
         #region HelperMethod
-        private async Task<Department> EnsureDepartmentExistsAsync(int id) {
+        private async Task<Department> GetDepartmentOrThrowAsync(int id) {
 
             Department? department = await _departmentRepository.GetDepartmentByIdAsync(id);
 

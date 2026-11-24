@@ -8,6 +8,8 @@ namespace WorkForceHub.Application.Interfaces.RepositoryInterfaces
         
         Task<IEnumerable<Department>> GetDepartmentsAsync();
 
+        Task<Department?> GetDepartmentDetailsAsync(int id);
+
         Task<Department?> GetDepartmentByIdAsync(int id);
         
         Task<Department> UpdateDepartmentAsync(Department department);

@@ -27,7 +27,12 @@ namespace WorkForceHub.Application.MappingProfile
             //Department ---> UpdateDepartmentDto
             CreateMap<Department, UpdateDepartmentDto>();
 
-            
+            //Department ---> DepartmentDetailsDto
+            CreateMap<Department, DepartmentDetailsDto>()
+                .ForMember(dest => dest.Employees, opt => opt.MapFrom(src => src.Employees));
+
+            CreateMap<Employee, DepartmentDetailsDto.EmployeeInfo>();
+
         }
     }
 }

@@ -36,6 +36,11 @@ namespace WorkForceHub.Infrastructure.Repositories
             return department;
         }
 
+        public async Task<Department?> GetDepartmentDetailsAsync(int id)
+        {
+            return await _db.Departments.Include(d => d.Employees).FirstOrDefaultAsync(d => d.DepartmentId == id);
+        }
+
         public async Task<IEnumerable<Department>> GetDepartmentsAsync()
         {
             var departments = await _db.Departments.ToListAsync();

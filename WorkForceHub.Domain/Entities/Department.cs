@@ -13,5 +13,8 @@
         public DateTime CreatedAt { get; set; }
 
         public DateTime? UpdatedAt { get; set; }
+
+        //Navigation Property
+        public ICollection<Employee> Employees { get; set; } = new List<Employee>();
     }
 }
