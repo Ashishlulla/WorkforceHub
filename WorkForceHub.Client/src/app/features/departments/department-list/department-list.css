@@ -288,3 +288,7 @@
   background: var(--primary-color);
   color: #FFFFFF;
 }
+
+.error{
+  color: red;
+}

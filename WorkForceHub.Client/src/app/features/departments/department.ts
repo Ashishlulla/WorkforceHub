@@ -25,4 +25,8 @@ export class DepartmentService {
   getDepartmentDetails(id: number):Observable<DepartmentDetailsModel>{
     return this.http.get<DepartmentDetailsModel>(`${this.apiUrl}/details/${id}`);
   }
+
+  deleteDepartment(id:number):Observable<void>{
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  }
 }

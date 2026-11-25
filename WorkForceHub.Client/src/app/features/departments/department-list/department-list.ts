@@ -15,6 +15,8 @@ export class DepartmentList implements OnInit {
 
   departments: Department[] = [];
   searchText: string = '';
+  errorMessage: string = '';
+  successMessage: string = '';
   pageTitleService = inject(PageTitleService);
 
 
@@ -46,11 +48,34 @@ export class DepartmentList implements OnInit {
         this.cdr.detectChanges();
         console.log("Department Value: ", this.departments);
       }, 
-      error:(error)=>{console.error("error fetching Departments: ", error)}});
+      error:(error)=>{
+        console.error("error fetching Departments: ", error);
+        this.errorMessage = error;
+
+      }});
   
     }
 
     viewDepartmentDetails(id: number){
      this.router.navigate(['/departments', id])  
+    }
+
+    deleteDepartment(id:number){
+        this.departmentService.deleteDepartment(id).subscribe({next:()=>{
+          console.log("Department deleted successfully.");
+          this.successMessage = "Department deleted successfully.";
+
+          setTimeout(()=>{
+            this.successMessage = ''
+          }, 4000);
+        }, error:(error)=>{
+          console.error("error deleting department: ", error);
+          this.errorMessage = error.error?.message || "Unable to delete department.";
+          
+
+          setTimeout(()=>{
+            this.errorMessage = ''
+          }, 4000);
+        }});
     }
 }

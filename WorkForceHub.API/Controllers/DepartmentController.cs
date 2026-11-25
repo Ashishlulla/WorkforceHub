@@ -67,9 +67,21 @@ namespace WorkForceHub.API.Controllers
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> DeleteDepartmentAsync(int id) {
 
-            await _departmentService.DeleteDepartmentByIdAsync(id);
+            try
+            {
+                await _departmentService.DeleteDepartmentByIdAsync(id);
 
-            return NoContent();
+                return NoContent();
+
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (InvalidOperationException ex) {
+
+                return Conflict(new { message = ex.Message });
+            }
         }
     }
 }

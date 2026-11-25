@@ -25,6 +25,22 @@
       />
     </div>
 
+    <!-- Success Message -->
+@if (successMessage) {
+  <div class="alert alert-success" role="alert">
+    <i class="fa-solid fa-circle-check me-2"></i>
+    {{ successMessage }}
+  </div>
+}
+
+<!-- Error Message -->
+@if (errorMessage) {
+  <div class="alert alert-danger" role="alert">
+    <i class="fa-solid fa-circle-exclamation me-2"></i>
+    {{ errorMessage }}
+  </div>
+}
+
     <span class="department-count">
       {{ FilteredDepartment.length }} Departments
     </span>
@@ -75,7 +91,8 @@
                 <button
                   type="button"
                   class="btn-action btn-delete"
-                  title="Delete Department">
+                  title="Delete Department"
+                  (click)="deleteDepartment(department.departmentId)">
                   <i class="fa-solid fa-trash"></i>
                 </button>
 

@@ -42,7 +42,12 @@ namespace WorkForceHub.Application.Services
         public async Task DeleteDepartmentByIdAsync(int id)
         {
 
-             Department department = await GetDepartmentOrThrowAsync(id);
+            Department? department = await GetDepartmentDetailsOrThrowAsync(id);
+
+            if (department.Employees.Any())
+            {
+                throw new InvalidOperationException("Cannot delete this department because it has assigned employees.");
+            }
 
             await _departmentRepository.DeleteDepartmentAsync(department);
 
@@ -102,6 +107,18 @@ namespace WorkForceHub.Application.Services
             if (department == null)
             {
                 throw new KeyNotFoundException($"No department exists with ID: {id}");
+            }
+
+            return department;
+        }
+
+        private async Task<Department> GetDepartmentDetailsOrThrowAsync(int id) {
+
+            Department? department = await _departmentRepository.GetDepartmentDetailsAsync(id);
+
+            if (department == null)
+            {
+                throw new KeyNotFoundException($"No department found with ID: {id}.");
             }
 
             return department;
