@@ -3,8 +3,8 @@
   <!-- Page Header -->
   <div class="page-heading">
     <div>
-      <h4>Create Department</h4>
-      <p>Add a new department to your organization</p>
+      <h4>{{isEditMode ? "Edit Department": "Create Department"}}</h4>
+      <p>{{isEditMode ? "update department information": "add new department to your organization"}}</p>
     </div>
 
     <button type="button" class="btn-back" routerLink="/departments">
@@ -72,6 +72,37 @@
           }
         </div>
 
+        <!-- Department Status -->
+@if (isEditMode) {
+  <div class="form-group status-form-group">
+    <label>Department Status</label>
+
+    <div class="status-toggle-container">
+      <label class="status-toggle">
+        <input
+          type="checkbox"
+          formControlName="isActive"
+        />
+
+        <span class="toggle-slider"></span>
+      </label>
+
+      <span
+        class="status-label"
+        [class.active]="departmentForm.controls.isActive.value"
+        [class.inactive]="!departmentForm.controls.isActive.value">
+        {{ departmentForm.controls.isActive.value ? 'Active' : 'Inactive' }}
+      </span>
+    </div>
+
+    <small class="status-hint">
+      {{ departmentForm.controls.isActive.value
+        ? 'This department is enabled and available for use.'
+        : 'This department is disabled.' }}
+    </small>
+  </div>
+}
+
       </div>
 
       <!-- Form Actions -->
@@ -85,7 +116,7 @@
 
         <button type="submit" class="btn-save">
           <i class="fa-solid fa-floppy-disk"></i>
-          Save Department
+          {{isEditMode ? "Update Department": "Save Department"}}
         </button>
       </div>
 

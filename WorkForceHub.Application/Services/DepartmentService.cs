@@ -124,6 +124,18 @@ namespace WorkForceHub.Application.Services
             return department;
         }
 
+        public async Task<UpdateDepartmentDto> GetDepartmentForUpdateAsync(int id)
+        {
+            Department? department = await _departmentRepository.GetDepartmentForUpdateAsync(id);
+
+            if (department == null)
+            {
+                throw new KeyNotFoundException($"No department found with ID: {id}");
+            }
+
+            return _mapper.Map<UpdateDepartmentDto>(department);
+        }
+
         #endregion
     }
 }

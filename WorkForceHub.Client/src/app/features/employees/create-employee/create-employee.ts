@@ -130,10 +130,10 @@ export class CreateEmployee implements OnInit{
         error:(error)=>{console.error("error fetching employee")}});
     }
 
-    updateEmployee(id: number, employee:UpdateEmployeeModel): void{
+    // updateEmployee(id: number, employee:UpdateEmployeeModel): void{
 
-      this.employeeService.updateEmployee(id, employee)
-    }
+    //   this.employeeService.updateEmployee(id, employee)
+    // }
 
     isPastDate(control: any) {
         

@@ -11,6 +11,8 @@ namespace WorkForceHub.Application.Interfaces.RepositoryInterfaces
         Task<Department?> GetDepartmentDetailsAsync(int id);
 
         Task<Department?> GetDepartmentByIdAsync(int id);
+
+        Task<Department?> GetDepartmentForUpdateAsync(int id);
         
         Task<Department> UpdateDepartmentAsync(Department department);
         

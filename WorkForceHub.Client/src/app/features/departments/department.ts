@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Department } from './models/department.model';
 import { CreateDepartmentModel } from './models/create-department.model';
 import { DepartmentDetailsModel } from './models/department-details.model';
+import { UpdateDepartmentModel } from './models/update-department.model';
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +27,17 @@ export class DepartmentService {
     return this.http.get<DepartmentDetailsModel>(`${this.apiUrl}/details/${id}`);
   }
 
+  getDepartmentForUpdate(id: number): Observable<UpdateDepartmentModel>{
+    return this.http.get<UpdateDepartmentModel>(`${this.apiUrl}/edit/${id}`);
+  }
+
   deleteDepartment(id:number):Observable<void>{
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
+
+  updateDepartment(id: number, department: UpdateDepartmentModel): Observable<UpdateDepartmentModel>{
+    return this.http.put<UpdateDepartmentModel>(`${this.apiUrl}/edit/${id}`, department);
+  }
+
+  
 }

@@ -39,7 +39,6 @@ export class DepartmentList implements OnInit {
   }
 
 
-
   getDepartments(): void{
 
     this.departmentService.getDepartments().subscribe({
@@ -78,4 +77,10 @@ export class DepartmentList implements OnInit {
           }, 4000);
         }});
     }
+
+    updateDepartment(id: number){
+      this.router.navigate(['departments/edit-department',id]);
+    }
+
+    
 }

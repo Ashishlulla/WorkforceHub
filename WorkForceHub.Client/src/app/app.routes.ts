@@ -17,5 +17,7 @@ export const routes: Routes = [
    //departments routes configurations
    {path:'departments', component: DepartmentList},
    {path:'departments/create-department', component: CreateDepartment},
-   {path:'departments/:id', component: DepartmentDetails}
+   {path:'departments/:id', component: DepartmentDetails},
+   {path:'departments/edit-department/:id', component: CreateDepartment}
+
 ];

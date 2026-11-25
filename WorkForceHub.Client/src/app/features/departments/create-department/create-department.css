@@ -226,3 +226,89 @@
     padding: 16px 18px;
   }
 }
+
+/* Department Status */
+.status-form-group {
+    margin-top: 10px;
+}
+
+.status-toggle-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+}
+
+/* Toggle Switch */
+.status-toggle {
+    position: relative;
+    display: inline-block;
+    width: 46px;
+    height: 25px;
+    margin: 0;
+    cursor: pointer;
+}
+
+.status-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.toggle-slider {
+    position: absolute;
+    inset: 0;
+    background-color: #CBD5E1;
+    border-radius: 30px;
+    transition: 0.3s ease;
+}
+
+.toggle-slider::before {
+    content: "";
+    position: absolute;
+    height: 19px;
+    width: 19px;
+    left: 3px;
+    top: 3px;
+    background-color: #FFFFFF;
+    border-radius: 50%;
+    transition: 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* Active State */
+.status-toggle input:checked + .toggle-slider {
+    background-color: #4F46E5;
+}
+
+.status-toggle input:checked + .toggle-slider::before {
+    transform: translateX(21px);
+}
+
+/* Focus Accessibility */
+.status-toggle input:focus-visible + .toggle-slider {
+    outline: 3px solid rgba(79, 70, 229, 0.25);
+    outline-offset: 2px;
+}
+
+/* Status Text */
+.status-label {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.status-label.active {
+    color: #16A34A;
+}
+
+.status-label.inactive {
+    color: #64748B;
+}
+
+/* Hint Text */
+.status-hint {
+    display: block;
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--text-secondary);
+}

@@ -1,8 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using WorkForceHub.Application.DTOs.Department;
 using WorkForceHub.Application.Interfaces.ServiceInterfaces;
-using WorkForceHub.Domain.Entities;
 
 namespace WorkForceHub.API.Controllers
 {
@@ -42,6 +40,15 @@ namespace WorkForceHub.API.Controllers
 
             return Ok(department);
         }
+
+        [HttpGet("edit/{id:int}")]
+        public async Task<IActionResult> GetDepartmentForUpdateAsync(int id) {
+
+            UpdateDepartmentDto updateDepartmentDto = await _departmentService.GetDepartmentForUpdateAsync(id);
+
+            return Ok(updateDepartmentDto);
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> CreateDepartmentAsync([FromBody]CreateDepartmentDto createDepartmentDto) {

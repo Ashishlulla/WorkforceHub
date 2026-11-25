@@ -9,7 +9,10 @@ namespace WorkForceHub.Application.Interfaces.ServiceInterfaces
         Task<IEnumerable<DepartmentDto>> GetDepartmentsAsync();
 
         Task<DepartmentDto> GetDepartmentByIdAsync(int id);
+        
         Task<DepartmentDetailsDto> GetDepartmentDetailsAsync(int id);
+
+        Task<UpdateDepartmentDto> GetDepartmentForUpdateAsync(int id);
 
         Task<DepartmentDto> UpdateDepartmentAsync(int id, UpdateDepartmentDto updateDepartmentDto);
 
