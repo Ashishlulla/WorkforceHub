@@ -1,0 +1,133 @@
+
+<div class="page-container">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div>
+      <h2 class="page-title">Shift Management</h2>
+      <p class="page-subtitle">Manage employee shifts and schedules</p>
+    </div>
+
+    <button class="btn btn-primary add-shift-btn" (click)="createShift()">
+      <i class="fa-solid fa-plus"></i>
+      Add Shift
+    </button>
+  </div>
+
+  <!-- Search and Summary -->
+  <div class="toolbar">
+    <div class="search-box">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input
+        type="text"
+        placeholder="Search shifts..."
+        [(ngModel)]="searchText"
+      />
+    </div>
+
+    <div class="shift-count">
+      <i class="fa-solid fa-clock"></i>
+      <span>{{ FilteredShifts.length }} Shifts</span>
+    </div>
+  </div>
+
+  <!-- Shift Cards -->
+  <div class="shift-grid" *ngIf="shifts.length > 0">
+
+    <div class="shift-card" *ngFor="let shift of FilteredShifts"  >
+
+      <!-- Card Header -->
+      <div class="card-header-section" (dblclick)="navigateToShiftDetails(shift.shiftId)">
+        <div class="shift-icon">
+          <i class="fa-solid fa-clock"></i>
+        </div>
+
+        <div class="shift-heading" >
+          <h5>{{ getShiftName(shift.shiftType) }} shift</h5>
+          <span
+            class="status-badge"
+            [ngClass]="shift.isActive ? 'active' : 'inactive'">
+            {{ shift.isActive ? 'Active' : 'Inactive' }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Shift Timing -->
+      <div class="shift-timing" (dblclick)="navigateToShiftDetails(shift.shiftId)">
+        <div class="time-item">
+          <span class="time-label">Start Time</span>
+          <span class="time-value">{{ shift.startTime }}</span>
+        </div>
+
+        <div class="time-divider">
+          <i class="fa-solid fa-arrow-right"></i>
+        </div>
+
+        <div class="time-item">
+          <span class="time-label">End Time</span>
+          <span class="time-value">{{ shift.endTime }}</span>
+        </div>
+      </div>
+
+      <!-- Shift Information -->
+      <div class="shift-info"  (dblclick)="navigateToShiftDetails(shift.shiftId)">
+        <div class="info-item">
+          <div class="info-icon grace-icon">
+            <i class="fa-solid fa-hourglass-half"></i>
+          </div>
+          <div>
+            <span class="info-label">Grace Period</span>
+            <span class="info-value">
+              {{ shift.gracePeriodInMinutes }} minutes
+            </span>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div class="info-icon overnight-icon">
+            <i class="fa-solid fa-moon"></i>
+          </div>
+          <div>
+            <span class="info-label">Overnight Shift</span>
+            <span class="info-value">
+              {{ shift.isOvernight ? 'Yes' : 'No' }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card Actions -->
+      <div class="card-actions" (dblclick)="navigateToShiftDetails(shift.shiftId)">
+        <button class="action-btn view-btn" title="View Details" (click)="navigateToShiftDetails(shift.shiftId)">
+          <i class="fa-solid fa-eye"></i>
+        </button>
+
+        <button class="action-btn edit-btn" title="Edit Shift">
+          <i class="fa-solid fa-pen-to-square"></i>
+        </button>
+
+        <button class="action-btn delete-btn" title="Delete Shift">
+          <i class="fa-solid fa-trash"></i>
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Empty State -->
+  <div class="empty-state" *ngIf="shifts.length === 0">
+    <div class="empty-icon">
+      <i class="fa-solid fa-clock"></i>
+    </div>
+
+    <h4>No Shifts Found</h4>
+    <p>There are currently no shifts available.</p>
+
+    <button class="btn btn-primary">
+      <i class="fa-solid fa-plus"></i>
+      Create First Shift
+    </button>
+  </div>
+
+</div>

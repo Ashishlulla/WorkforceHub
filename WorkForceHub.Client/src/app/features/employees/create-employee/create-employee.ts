@@ -4,12 +4,12 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { DepartmentService } from '../../departments/department';
 import { ShiftService } from '../../shifts/shift';
 import { Department } from '../../departments/models/department.model';
-import { Shift } from '../../shifts/models/shift.model';
 import { ShiftType } from '../../shifts/models/shiftType.enum';
 import { EmployeeService } from '../employee';
 import { CreateEmployeeModel } from '../models/create-employee.model';
 import { UpdateEmployeeModel } from '../models/update-employee.model';
 import { PageTitleService } from '../../../core/services/PageTitleService';
+import { ShiftModel } from '../../shifts/models/shift.model';
 
 
 const joiningDateValidators: ValidatorFn=(control: AbstractControl):ValidationErrors |null=>{
@@ -40,7 +40,7 @@ export class CreateEmployee implements OnInit{
    pageTitleService = inject(PageTitleService);
 
    departments: Department[] = [];
-   shifts: Shift[] = [];
+   shifts: ShiftModel[] = [];
    employeeId: number | null = null;
    isEditMode: boolean = false;
 

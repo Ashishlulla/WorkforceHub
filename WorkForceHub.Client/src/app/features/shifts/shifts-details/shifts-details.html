@@ -1,0 +1,207 @@
+
+<div class="details-container" *ngIf="shift">
+
+  <!-- Header -->
+  <div class="details-header">
+    <div class="header-left">
+      <div class="shift-icon">
+        <i class="fa-solid fa-clock"></i>
+      </div>
+
+      <div>
+        <h2 class="page-title">
+          {{ getShiftName(shift.shiftType) }} Shift
+        </h2>
+        <p class="page-subtitle">
+          View complete shift information and schedule
+        </p>
+      </div>
+    </div>
+
+    <span
+      class="status-badge"
+      [ngClass]="shift.isActive ? 'active' : 'inactive'">
+      {{ shift.isActive ? 'Active' : 'Inactive' }}
+    </span>
+  </div>
+
+  <!-- Shift Schedule Card -->
+  <div class="details-card">
+
+    <div class="section-heading">
+        <i class="fa-solid fa-clock"></i>
+        <h4>Shift Schedule</h4>
+    </div>
+
+    <div class="timing-container">
+
+      <!-- Start Time -->
+      <div class="timing-box">
+        <div class="timing-icon start-icon">
+          <i class="fa-solid fa-sun"></i>
+        </div>
+
+        <span class="timing-label">Start Time</span>
+        <h3>{{ shift.startTime }}</h3>
+      </div>
+
+      <div class="timing-arrow">
+        <i class="fa-solid fa-arrow-right"></i>
+      </div>
+
+      <!-- End Time -->
+      <div class="timing-box">
+        <div class="timing-icon end-icon">
+          <i class="fa-solid fa-moon"></i>
+        </div>
+
+        <span class="timing-label">End Time</span>
+        <h3>{{ shift.endTime }}</h3>
+      </div>
+
+    </div>
+
+    <!-- Overnight Information -->
+    <div class="overnight-banner" *ngIf="shift.isOvernight">
+      <i class="fa-solid fa-moon"></i>
+      <span>This shift continues into the next day.</span>
+    </div>
+
+  </div>
+
+  <!-- Shift Information Card -->
+  <div class="details-card">
+
+    <div class="section-heading">
+      <i class="fa-solid fa-circle-info"></i>
+      <h4>Shift Information</h4>
+    </div>
+
+    <div class="info-grid">
+
+      <div class="info-box">
+        <span class="info-label">Shift ID</span>
+        <span class="info-value">#{{ shift.shiftId }}</span>
+      </div>
+
+      <div class="info-box">
+        <span class="info-label">Shift Type</span>
+        <span class="info-value">
+          {{ getShiftName(shift.shiftType) }}
+        </span>
+      </div>
+
+      <div class="info-box">
+        <span class="info-label">Grace Period</span>
+        <span class="info-value">
+          {{ shift.gracePeriodInMinutes }} Minutes
+        </span>
+      </div>
+
+      <div class="info-box">
+        <span class="info-label">Overnight Shift</span>
+        <span class="info-value">
+          {{ shift.isOvernight ? 'Yes' : 'No' }}
+        </span>
+      </div>
+
+      <div class="info-box">
+        <span class="info-label">Status</span>
+        <span
+          class="status-badge"
+          [ngClass]="shift.isActive ? 'active' : 'inactive'">
+          {{ shift.isActive ? 'Active' : 'Inactive' }}
+        </span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Employee Information Card -->
+  <div class="details-card">
+
+    <div class="section-heading">
+      <i class="fa-solid fa-users"></i>
+      <h4>Assigned Employees</h4>
+    </div>
+
+    <div class="employee-summary">
+      <div class="employee-count">
+        <div class="employee-count-icon">
+          <i class="fa-solid fa-user-group"></i>
+        </div>
+
+        <div>
+          <span class="info-label">Total Employees</span>
+          <h3>{{ shift.totalEmployees }}</h3>
+        </div>
+      </div>
+    </div>
+
+    <div class="employee-list" *ngIf="shift.employeeNames.length > 0">
+
+      <div class="employee-item" *ngFor="let employee of shift.employeeNames; let i = index">
+
+        <div class="employee-avatar">
+          <i class="fa-solid fa-user"></i>
+        </div>
+
+        <span class="employee-name">{{ employee }}</span>
+
+      </div>
+
+    </div>
+
+    <div class="no-employees" *ngIf="shift.employeeNames.length === 0">
+      <i class="fa-solid fa-user-slash"></i>
+      <p>No employees are assigned to this shift.</p>
+    </div>
+
+  </div>
+
+  <!-- Audit Information -->
+  <div class="details-card">
+
+    <div class="section-heading">
+      <i class="fa-solid fa-clock-rotate-left"></i>
+      <h4>Audit Information</h4>
+    </div>
+
+    <div class="info-grid">
+
+      <div class="info-box">
+        <span class="info-label">Created At</span>
+        <span class="info-value">
+          {{ shift.createdAt | date:'medium' }}
+        </span>
+      </div>
+
+      <div class="info-box">
+        <span class="info-label">Last Updated</span>
+        <span class="info-value">
+          {{ shift.updatedAt ? (shift.updatedAt | date:'medium') : 'Never Updated' }}
+        </span>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Back Button -->
+  <div class="details-footer">
+    <button
+      class="btn btn-outline-secondary back-btn"
+      routerLink="/shifts">
+      <i class="fa-solid fa-arrow-left"></i>
+      Back to Shifts
+    </button>
+  </div>
+
+</div>
+
+<!-- Loading State -->
+<div class="loading-state" *ngIf="!shift">
+  <i class="fa-solid fa-spinner fa-spin"></i>
+  <p>Loading shift details...</p>
+</div>

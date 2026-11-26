@@ -12,13 +12,14 @@ namespace WorkForceHub.API.Controllers
         private readonly IShiftService _shiftService;
 
         //Constructor
-        public ShiftController(IShiftService shiftService) {
+        public ShiftController(IShiftService shiftService)
+        {
 
             _shiftService = shiftService;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetShiftsAsync() 
+        public async Task<IActionResult> GetShiftsAsync()
         {
             var shifts = await _shiftService.GetShiftsAsync();
 
@@ -26,15 +27,25 @@ namespace WorkForceHub.API.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public async Task<IActionResult> GetShiftByIdAsync(int id) {
+        public async Task<IActionResult> GetShiftByIdAsync(int id)
+        {
 
             var shift = await _shiftService.GetShiftByIdAsync(id);
 
             return Ok(shift);
         }
 
+        [HttpGet("edit/{id:int}")]
+        public async Task<IActionResult> GetShiftForUpdate(int id)
+        {
+            UpdateShiftDto updateShiftDto = await _shiftService.GetShiftForUpdateAsync(id);
+
+            return Ok(updateShiftDto);
+        }
+
         [HttpGet("details/{id:int}")]
-        public async Task<IActionResult> GetShiftDetailsByIdAsync(int id) {
+        public async Task<IActionResult> GetShiftDetailsByIdAsync(int id)
+        {
 
             var shiftDetails = await _shiftService.GetShiftDetailsByIdAsync(id);
 
@@ -42,7 +53,8 @@ namespace WorkForceHub.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateShiftAsync([FromBody] CreateShiftDto createShiftDto) {
+        public async Task<IActionResult> CreateShiftAsync([FromBody] CreateShiftDto createShiftDto)
+        {
 
             var createdShift = await _shiftService.CreateShiftAsync(createShiftDto);
 
@@ -50,7 +62,8 @@ namespace WorkForceHub.API.Controllers
         }
 
         [HttpPut("edit/{id:int}")]
-        public async Task<IActionResult> UpdateShiftAsync(int id, [FromBody] UpdateShiftDto updateShiftDto) {
+        public async Task<IActionResult> UpdateShiftAsync(int id, [FromBody] UpdateShiftDto updateShiftDto)
+        {
 
             var updatedShift = await _shiftService.UpdateShiftAsync(id, updateShiftDto);
 
@@ -58,11 +71,14 @@ namespace WorkForceHub.API.Controllers
         }
 
         [HttpDelete("delete/{id:int}")]
-        public async Task<IActionResult> DeleteShiftByIdAsync(int id) {
+        public async Task<IActionResult> DeleteShiftByIdAsync(int id)
+        {
 
             await _shiftService.DeleteShiftAsync(id);
 
             return NoContent();
         }
+
     }
 }
+    

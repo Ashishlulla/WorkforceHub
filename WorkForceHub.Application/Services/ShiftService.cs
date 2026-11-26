@@ -75,6 +75,13 @@ namespace WorkForceHub.Application.Services
             return _mapper.Map<List<ShiftDto>>(shifts);
         }
 
+        public async Task<UpdateShiftDto> GetShiftForUpdateAsync(int id) {
+
+            Shift shift = await EnsureShiftExistsAsync(id);
+
+            return _mapper.Map<UpdateShiftDto>(shift);
+        }
+
         public async Task<ShiftDto> UpdateShiftAsync(int id, UpdateShiftDto updateShiftDto)
         {
             await _updateShiftDtoValidator.ValidateAndThrowAsync(updateShiftDto);

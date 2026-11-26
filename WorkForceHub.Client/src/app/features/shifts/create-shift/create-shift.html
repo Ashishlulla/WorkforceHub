@@ -1,0 +1,229 @@
+<div class="create-shift-container">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="header-left">
+      <div class="header-icon">
+        <i class="fa-solid fa-clock"></i>
+      </div>
+
+      <div>
+        <h2>Create Shift</h2>
+        <p>Create a new employee shift schedule</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Form Card -->
+  <div class="form-card">
+
+    <div class="form-card-header">
+      <div class="section-icon">
+        <i class="fa-solid fa-calendar-days"></i>
+      </div>
+
+      <div>
+        <h4>Shift Information</h4>
+        <p>Enter the shift details below</p>
+      </div>
+    </div>
+
+    <form [formGroup]="shiftForm" (ngSubmit)="onSubmit()">
+
+      <!-- Shift Type -->
+      <div class="form-group">
+        <label for="shiftType">
+          Shift Type <span class="required">*</span>
+        </label>
+
+        <select
+          id="shiftType"
+          class="form-control"
+          formControlName="shiftType">
+
+          <option [ngValue]="null" disabled>Select Shift Type</option>
+          <option [ngValue]="1">General</option>
+          <option [ngValue]="2">Morning</option>
+          <option [ngValue]="3">Evening</option>
+          <option [ngValue]="4">Night</option>
+        </select>
+
+        <div class="error-message"
+          *ngIf="shiftForm.get('shiftType')?.touched &&
+                 shiftForm.get('shiftType')?.hasError('required')">
+          Please select a shift type.
+        </div>
+      </div>
+
+      <!-- Shift Timings -->
+      <div class="form-section">
+        <div class="section-heading">
+          <i class="fa-solid fa-clock"></i>
+          <h5>Shift Timing</h5>
+        </div>
+
+        <div class="timing-grid">
+
+          <!-- Start Time -->
+          <div class="form-group">
+            <label for="startTime">
+              Start Time <span class="required">*</span>
+            </label>
+
+            <input
+              type="time"
+              id="startTime"
+              class="form-control"
+              formControlName="startTime">
+
+            <div class="error-message"
+              *ngIf="shiftForm.get('startTime')?.touched &&
+                     shiftForm.get('startTime')?.hasError('required')">
+              Start time is required.
+            </div>
+          </div>
+
+          <!-- End Time -->
+          <div class="form-group">
+            <label for="endTime">
+              End Time <span class="required">*</span>
+            </label>
+
+            <input
+              type="time"
+              id="endTime"
+              class="form-control"
+              formControlName="endTime">
+
+            <div class="error-message"
+              *ngIf="shiftForm.get('endTime')?.touched &&
+                     shiftForm.get('endTime')?.hasError('required')">
+              End time is required.
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Shift Duration Validation -->
+        <div class="error-message duration-error"
+          *ngIf="shiftForm.hasError('invalidShiftDuration') &&
+                 (shiftForm.get('startTime')?.touched ||
+                  shiftForm.get('endTime')?.touched)">
+
+          <i class="fa-solid fa-circle-exclamation"></i>
+
+          <span>
+            Invalid shift duration. Check the start time, end time and overnight setting.
+          </span>
+        </div>
+
+      </div>
+
+      <!-- Grace Period -->
+      <div class="form-group">
+        <label for="gracePeriodInMinutes">
+          Grace Period (Minutes) <span class="required">*</span>
+        </label>
+
+        <input
+          type="number"
+          id="gracePeriodInMinutes"
+          class="form-control"
+          formControlName="gracePeriodInMinutes"
+          min="0"
+          placeholder="Enter grace period">
+
+        <small class="form-hint">
+          Minutes allowed after shift start before marking late attendance.
+        </small>
+
+        <div class="error-message"
+          *ngIf="shiftForm.get('gracePeriodInMinutes')?.touched &&
+                 shiftForm.get('gracePeriodInMinutes')?.hasError('required')">
+          Grace period is required.
+        </div>
+
+        <div class="error-message"
+          *ngIf="shiftForm.get('gracePeriodInMinutes')?.touched &&
+                 shiftForm.get('gracePeriodInMinutes')?.hasError('min')">
+          Grace period cannot be negative.
+        </div>
+      </div>
+
+      <!-- Shift Options -->
+      <div class="form-section">
+
+        <div class="section-heading">
+          <i class="fa-solid fa-sliders"></i>
+          <h5>Shift Settings</h5>
+        </div>
+
+        <!-- Overnight -->
+        <div class="setting-box">
+          <div class="setting-info">
+            <div class="setting-icon overnight-icon">
+              <i class="fa-solid fa-moon"></i>
+            </div>
+
+            <div>
+              <h6>Overnight Shift</h6>
+              <p>Enable if the shift ends on the following day.</p>
+            </div>
+          </div>
+
+          <label class="toggle-switch">
+            <input
+              type="checkbox"
+              formControlName="isOvernight">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+        <!-- Active Status -->
+        <div class="setting-box">
+          <div class="setting-info">
+            <div class="setting-icon active-icon">
+              <i class="fa-solid fa-circle-check"></i>
+            </div>
+
+            <div>
+              <h6>Active Shift</h6>
+              <p>Make this shift available for employee assignment.</p>
+            </div>
+          </div>
+
+          <label class="toggle-switch">
+            <input
+              type="checkbox"
+              formControlName="isActive">
+            <span class="toggle-slider"></span>
+          </label>
+        </div>
+
+      </div>
+
+      <!-- Footer Buttons -->
+      <div class="form-footer">
+
+        <button
+          type="button"
+          class="btn-cancel"
+          (click)="router.navigate(['/shifts'])">
+          <i class="fa-solid fa-xmark"></i>
+          Cancel
+        </button>
+
+        <button
+          type="submit"
+          class="btn-create"
+          [disabled]="shiftForm.invalid">
+
+          <i class="fa-solid fa-plus"></i>
+          Create Shift
+        </button>
+
+      </div>
+
+    </form>
+  </div>
+</div>

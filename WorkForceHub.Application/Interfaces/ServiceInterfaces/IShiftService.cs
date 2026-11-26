@@ -12,6 +12,8 @@ namespace WorkForceHub.Application.Interfaces.ServiceInterfaces
         Task<ShiftDto> GetShiftByIdAsync(int id);
         
         Task<ShiftDetailsDto> GetShiftDetailsByIdAsync(int id);
+
+        Task<UpdateShiftDto> GetShiftForUpdateAsync(int id);
         
         Task<ShiftDto> UpdateShiftAsync(int id , UpdateShiftDto updateShiftDto);
         

@@ -1,15 +1,13 @@
 import { ShiftType } from "./shiftType.enum";
 
-export interface Shift {
-
+export interface ShiftModel {
     shiftId: number;
     shiftType: ShiftType;
     startTime: string;
     endTime: string;
-    graceperoidInMinutes: number;
-    isOverNight: boolean;
+    gracePeriodInMinutes: number;
+    isOvernight: boolean;
     isActive: boolean;
     createdAt: string;
-    updatedAt: string;
-
+    updatedAt: string | null;
 }
