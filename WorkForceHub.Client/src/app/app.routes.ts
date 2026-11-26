@@ -11,20 +11,21 @@ import { CreateShift } from './features/shifts/create-shift/create-shift';
 
 export const routes: Routes = [
     //Employees routees configurations
-    {path:"employees", component: EmployeeList},
-    {path: '', redirectTo: 'employees', pathMatch: 'full'},
-    {path:"employees/create", component: CreateEmployee},
-    {path:'employees/:id', component:EmployeeDetails},
-   {path:'employees/:id/edit', component: CreateEmployee},
+    { path:"employees", component: EmployeeList},
+    { path: '', redirectTo: 'employees', pathMatch: 'full'},
+    { path:"employees/create", component: CreateEmployee},
+    { path:'employees/:id', component:EmployeeDetails},
+    { path:'employees/:id/edit', component: CreateEmployee},
   
-   //departments routes configurations
-   {path:'departments', component: DepartmentList},
-   {path:'departments/create-department', component: CreateDepartment},
-   {path:'departments/:id', component: DepartmentDetails},
-   {path:'departments/edit-department/:id', component: CreateDepartment},
+    //departments routes configurations
+    { path:'departments', component: DepartmentList},
+    { path:'departments/create-department', component: CreateDepartment},
+    { path:'departments/:id', component: DepartmentDetails},
+    { path:'departments/edit-department/:id', component: CreateDepartment},
 
-   //Shift routes Configurations
-   { path: 'shifts', component: ShiftList },
-{ path: 'shifts/create-shift', component: CreateShift },
-{ path: 'shifts/:id', component: ShiftsDetails }
+    //Shift routes Configurations
+    { path: 'shifts', component: ShiftList },
+    { path: 'shifts/create-shift', component: CreateShift },
+    { path: 'shifts/:id', component: ShiftsDetails },
+    { path:'shifts/edit/:id', component: CreateShift}
 ];

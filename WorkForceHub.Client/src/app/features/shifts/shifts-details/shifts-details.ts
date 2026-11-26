@@ -20,7 +20,7 @@ export class ShiftsDetails implements OnInit{
 
   ngOnInit(): void {
     
-    this.pageTitleService.setPageTitle("Shift Details", "view complete shift information");
+    this.pageTitleService.setPageTitle("Shift Details", "View complete shift information and schedule");
 
     this.getShiftDetails();
   }

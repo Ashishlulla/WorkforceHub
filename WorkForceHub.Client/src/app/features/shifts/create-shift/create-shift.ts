@@ -1,11 +1,13 @@
 import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { ShiftService } from '../shift';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AbstractControl, FormBuilder, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { PageTitleService } from '../../../core/services/PageTitleService';
 import { ShiftModel } from '../models/shift.model';
 import { CreateShiftModel } from '../models/create-shift.model';
 import { ShiftType } from '../models/shiftType.enum';
+import { CommonModule } from '@angular/common';
+import { UpdateShiftModel } from '../models/update-shift.model';
 const ValidateShiftDuration: ValidatorFn = (control: AbstractControl) => {
 
   const  startTime = control.get('startTime')?.value;
@@ -31,7 +33,7 @@ const ValidateShiftDuration: ValidatorFn = (control: AbstractControl) => {
 }
 
 @Component({
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule,CommonModule, RouterLink],
   selector: 'app-create-shift',
   styleUrl: './create-shift.css',
   templateUrl: './create-shift.html',
@@ -39,8 +41,10 @@ const ValidateShiftDuration: ValidatorFn = (control: AbstractControl) => {
 export class CreateShift implements OnInit {
 
   private fb = inject(FormBuilder);
+  private shiftId: number | null= null;
+  private isEditMode: boolean = false;
 
-  constructor( private shiftService: ShiftService, private pageTitleService: PageTitleService , private router: Router, private cdr: ChangeDetectorRef ){}
+  constructor( private shiftService: ShiftService, private pageTitleService: PageTitleService , private router: Router, private cdr: ChangeDetectorRef, private activatedRoute: ActivatedRoute ){}
 
   shiftForm = this.fb.group({
 
@@ -61,8 +65,31 @@ export class CreateShift implements OnInit {
 
   ngOnInit(): void {
      
-    this.pageTitleService.setPageTitle("Create Shift", "add new shift to you organization");
-  
+     this.pageTitleService.setPageTitle("Create Shift", "add new shift to you organization");
+
+     this.activatedRoute.paramMap.subscribe(params=>{
+      const id = Number(params.get('id'));
+
+      if (id) {
+        this.shiftId = id;
+        this.isEditMode = true;
+
+        this.pageTitleService.setPageTitle("Edit Shift", "pdate shift information");
+
+        this.grtShiftForUpdate()
+      }
+     });
+  }
+
+  grtShiftForUpdate(): void{
+
+    this.shiftService.getShiftForUpdate(this.shiftId).subscribe({
+      next:(data)=>{
+        this.shiftForm.patchValue(data);
+      }, 
+      error:(error)=>{
+        console.error("error fetching shoft for update: ", error);
+      }});
   }
 
   onSubmit(){
@@ -72,16 +99,42 @@ export class CreateShift implements OnInit {
       return;
     }
 
-    const shiftData = this.shiftForm.getRawValue() as CreateShiftModel;
+    if(this.isEditMode){
 
-    this.shiftService.createShift(shiftData).subscribe({
-      next: (addedShift)=>{
-        console.log("Shift Added successfully: ", addedShift);
-        this.router.navigate(['shifts']);
-      }, 
+      const shiftData: UpdateShiftModel = 
+      {
+        shiftId: this.shiftId!,
+        shiftType: this.shiftForm.controls.shiftType.value!,
+        startTime: this.shiftForm.controls.startTime.value!,
+        endTime: this.shiftForm.controls.endTime.value!,
+        gracePeriodInMinutes:this.shiftForm.controls.gracePeriodInMinutes.value!,
+        isActive: this.shiftForm.controls.isActive.value ?? true,
+        isOvernight: this.shiftForm.controls.isOvernight.value ?? false,
+      };
 
-      error:(error)=>{
-        console.error("error adding shift: ", error);
-      }});
+      this.shiftService.updateShift(this.shiftId!, shiftData).subscribe(
+        {next:(updatedShift)=>{
+          console.log("Shift updatd successfully: ", updatedShift);
+          this.router.navigate(['/shifts']);
+        }, 
+        error: (error)=>{
+          console.error("error updating shift: ", error);
+        }});
+
+    }else{
+
+      const shiftData = this.shiftForm.getRawValue() as CreateShiftModel;
+
+      this.shiftService.createShift(shiftData).subscribe({
+        next: (addedShift)=>{
+          console.log("Shift Added successfully: ", addedShift);
+          this.router.navigate(['shifts']);
+        }, 
+
+        error:(error)=>{
+          console.error("error adding shift: ", error);
+        }});
+    }
+    
   }
 }

@@ -26,7 +26,7 @@ export class ShiftList implements OnInit {
 
   ngOnInit(): void {
 
-    this.pageTitleService.setPageTitle("Shifts", "mange andd view shifts");
+    this.pageTitleService.setPageTitle("Shifts", "manage and view shifts");
     this.getShifts();
   }
 
@@ -69,4 +69,10 @@ export class ShiftList implements OnInit {
   createShift(){
     return this.router.navigate(['/shifts/create-shift']);
   }
+
+  updsteShift(id: number){
+    return this.router.navigate(['/shifts/edit', id]);
+  }
+
+  
 }

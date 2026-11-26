@@ -6,6 +6,6 @@ export interface UpdateShiftModel{
     startTime: string;
     endTime: string;
     gracePeriodInMinutes: number;
-    isOvernight: boolean;
+    isOvernight: boolean ;
     isActive: boolean;
 }

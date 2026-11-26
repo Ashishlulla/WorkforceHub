@@ -17,6 +17,11 @@ namespace WorkForceHub.Application.MappingProfile
                 .ForMember(dest => dest.TotalEmployees, opt => opt.MapFrom(src => src.Employees.Count))
                 .ForMember(dest => dest.EmployeeNames, opt => opt.MapFrom(src => src.Employees.Select(e => e.FirstName + " " + e.LastName)));
 
+            // Shift ---> UpdateShiftDto
+            CreateMap<Shift, UpdateShiftDto>();
+
+
+
             //CreateShiftDto ---> Shift
             CreateMap<CreateShiftDto, Shift>()
                 .ForMember(dest => dest.CreatedAt, opt => opt.Ignore())

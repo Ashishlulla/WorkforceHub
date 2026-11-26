@@ -21,7 +21,7 @@ export class ShiftService {
     return this.http.get<ShiftDetailsModel>(`${this.apiUrl}/details/${id}`);
   }
 
-  getShiftForUpdate(id:number): Observable<UpdateShiftModel>{
+  getShiftForUpdate(id:number |null): Observable<UpdateShiftModel >{
     return this.http.get<UpdateShiftModel>(`${this.apiUrl}/edit/${id}`);
   }
 

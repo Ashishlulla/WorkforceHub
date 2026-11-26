@@ -8,8 +8,8 @@
       </div>
 
       <div>
-        <h2>Create Shift</h2>
-        <p>Create a new employee shift schedule</p>
+        <h2>{{isEditMode ?"Edit Shift":"Create Shift"}}</h2>
+        <p>{{isEditMode ? "update employee shift schedule":"Create a new employee shift schedule"}}</p>
       </div>
     </div>
   </div>
@@ -219,7 +219,7 @@
           [disabled]="shiftForm.invalid">
 
           <i class="fa-solid fa-plus"></i>
-          Create Shift
+          {{isEditMode ? "Update Shift":"Create Shift"}}
         </button>
 
       </div>
