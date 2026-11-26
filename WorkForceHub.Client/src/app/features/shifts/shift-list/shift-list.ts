@@ -74,5 +74,15 @@ export class ShiftList implements OnInit {
     return this.router.navigate(['/shifts/edit', id]);
   }
 
-  
+  deleteShift(id:number): void{
+    this.shiftService.deleteShift(id).subscribe({
+      next:()=>{
+        console.log("shift deleyed successfully...");
+        this.cdr.detectChanges();
+        this.router.navigate(["/shifts"]);
+      }, 
+      error:(error)=>{
+        console.error("error deleting shift: ", error)
+      }});
+  }
 }
